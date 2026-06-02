@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- <head>
+    <p>Calvin Merrell: Software Engineer</p>
+</head> -->
+<head1>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Beautiful Website with Video Background and Article Features">
+    <title> Calvin Merrell</title>
+    <style>
+        /* General Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        /* Video Background */
+        .video-container {
+            position: relative;
+            height: 15vh;
+            overflow: hidden;
+        }
+
+        #bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .2); /* Adds a dark overlay to the video */
+        }
+
+        /* Header Styles */
+        header {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            color: #fff;
+            z-index: 1;
+        }
+
+
+        /* Main Feature Section */
+        .main-feature {
+            padding: 50px 20px;
+            text-align: center;
+            background: #f4f4f4;
+            margin-top: -5px; /* Adjusted margin to ensure smooth scroll */
+        }
+
+        .main-feature h2 {
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        /* Articles Section */
+        .articles {
+            padding: 50px 20px;
+            background: #fff;
+        }
+
+        .article-grid {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .article-card {
+            width: 30%;
+            background: #f9f9f9;
+            margin: 20px 0;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .article-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .article-card h3 {
+            margin: 20px 0 10px;
+            font-size: 1.5em;
+        }
+
+        .article-card p {
+            color: #777;
+        }
+    </style>
+</head1>
+<body>
+
+    <!-- Video Background -->
+    <div class="video-container">
+        <video autoplay muted loop id="bg-video">
+            <source src="/Users/calvinmerrell/Desktop/Website/215484_medium.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Navigation -->
+    <header>
+        <h1>Calvin W. Merrell</h1>
+    </header>
+
+    <!-- Main Feature Section -->
+    <section id="main-feature" class="main-feature">
+        <h2>Articles</h2>
+        <p>This is the main feature section of the website, where we highlight the most important content or feature.</p>
+    </section>
+
+    <!-- Articles Section -->
+    <section class="articles">
+        <h2>Latest Articles</h2>
+        <div class="article-grid">
+            <div class="article-card">
+                <img src="/Users/calvinmerrell/Desktop/Website/technology-1283624_1920.jpg" alt="Article 1">
+                <h3>Code Experiance</h3>
+                <p>Short description of the article content.</p>
+            </div>
+            <div class="article-card">
+                <img src="/Users/calvinmerrell/Desktop/Website/man-1866784_1920.jpg" alt="Article 2">
+                <h3>Work Experiance</h3>
+                <p>Short description of the article content.</p>
+            </div>
+            <div class="article-card">
+                <img src="/Users/calvinmerrell/Desktop/Website/library-869061_1920.jpg" alt="Article 3">
+                <h3>Education</h3>
+                <p>Short description of the article content.</p>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
