@@ -123,6 +123,20 @@
     <header>
         <h1>Calvin W. Merrell 1.0</h1>
     </header>
+    
+    <p id="last-updated"></p>
+
+    <script>
+        fetch('https://api.github.com/repos/Nivlac17/calvinmerrell.com/commits?per_page=1')
+        .then(response => response.json())
+        .then(data => {
+            const date = new Date(data[0].commit.author.date);
+
+            document.getElementById('last-updated').textContent =
+            `Last updated: ${date.toLocaleString()}`;
+        });
+    </script>
+
 
     <!-- Main Feature Section -->
     <section id="main-feature" class="main-feature">
