@@ -24,12 +24,18 @@ jobs:
       - run: npm ci
         working-directory: vite-calvinmerrell.com
 
+      - name: Set build date
+        run: echo "VITE_BUILD_DATE=$(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> $GITHUB_ENV
+
+
       - run: npm run build
         working-directory: vite-calvinmerrell.com
 
       - uses: actions/upload-pages-artifact@v3
         with:
           path: vite-calvinmerrell.com/dist
+      
+ 
 
   deploy:
     needs: build

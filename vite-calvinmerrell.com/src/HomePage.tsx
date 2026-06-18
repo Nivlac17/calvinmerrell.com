@@ -1,18 +1,12 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import './HomePage.css';
 
 export default function HomePage() {
-  const [lastUpdated, setLastUpdated] = useState<string>('');
 
-  useEffect(() => {
-    fetch('https://api.github.com/repos/Nivlac17/calvinmerrell.com/commits?per_page=1')
-      .then((response) => response.json())
-      .then((data) => {
-        const date = new Date(data[0].commit.author.date);
-        setLastUpdated(`Last updated: ${date.toLocaleString()}`);
-      })
-      .catch(console.error);
-  }, []);
+
+  const lastUpdated = import.meta.env.VITE_BUILD_DATE;
+
+<p>Last updated: {lastUpdated}</p>
 
   return (
     <>
