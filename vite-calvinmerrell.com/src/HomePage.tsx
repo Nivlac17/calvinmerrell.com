@@ -1,12 +1,10 @@
-// import { useEffect, useState } from 'react';
 import './HomePage.css';
+import { Link } from 'react-router-dom';
+import { getAllPosts } from './lib/posts';
 
 export default function HomePage() {
-
-
+  const posts = getAllPosts();
   const lastUpdated = import.meta.env.VITE_BUILD_DATE;
-
-<p>Last updated: {lastUpdated}</p>
 
   return (
     <>
@@ -22,41 +20,21 @@ export default function HomePage() {
         <p>{lastUpdated}</p>
       </header>
 
-      <section className="main-feature">
-        <h2>Articles</h2>
-        <p>
-          This is the main feature section of the website, where we highlight
-          the most important content or feature.
-        </p>
-      </section>
-
       <section className="articles">
         <h2>Latest Articles</h2>
 
         <div className="article-grid">
-          <div className="article-card">
-            <img
-              src="/images/technology-1283624_1920.jpg"
-              alt="Code Experience"
-            />
-            <h3>Code Experience</h3>
-            <p>Short description of the article content.</p>
-          </div>
-
-          <div className="article-card">
-            <img
-              src="/images/man-1866784_1920.jpg"
-              alt="Work Experience"
-            />
-            <h3>Work Experience</h3>
-            <p>Short description of the article content.</p>
-          </div>
-
-          <div className="article-card">
-            <img src="/images/library.jpg" alt="Education" />
-            <h3>Education</h3>
-            <p>Short description of the article content.</p>
-          </div>
+          {posts.map((post) => (
+            <Link
+              key={post.slug}
+              to={`/article/${post.slug}`}
+              className="article-card"
+            >
+              <img src={post.image} alt={post.title} />
+              <h3>{post.title}</h3>
+              <p>{post.description}</p>
+            </Link>
+          ))}
         </div>
       </section>
     </>
