@@ -23,6 +23,9 @@ jobs:
 
       - run: npm ci
         working-directory: vite-calvinmerrell.com
+        
+      - run: npm install marked gray-matter react-markdown
+      - run: npm install react-router-dom                            
 
       - name: Set build date
         run: echo "VITE_BUILD_DATE=$(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> $GITHUB_ENV
