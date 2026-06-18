@@ -11,10 +11,6 @@
 
     /* Bundler mode */
     "moduleResolution": "bundler",
-
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
