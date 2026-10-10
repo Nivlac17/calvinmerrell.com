@@ -163,8 +163,18 @@
 }
 
 .article-page {
-  padding-top: 44px;
-  padding-bottom: 80px;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100vh;
+  margin-inline: 0;
+  padding: 44px 24px 80px;
+  color: #f3f5f8;
+  background: #111821;
+  text-align: left;
+}
+
+.article-page .eyebrow {
+  color: #8ee1d3;
 }
 
 .back-link,
@@ -175,6 +185,11 @@
   color: #176b65;
   font-weight: 650;
   text-decoration: none;
+}
+
+.article-page .back-link,
+.article-page .text-link {
+  color: #8ee1d3;
 }
 
 .back-link:hover,
@@ -196,7 +211,7 @@
 .not-found h1,
 .article-page > h1 {
   margin: 0;
-  color: #17202d;
+  color: #fff;
   font-size: clamp(2rem, 4.5vw, 3.5rem);
   letter-spacing: -0.045em;
   line-height: 1.1;
@@ -204,13 +219,13 @@
 
 .article-description {
   margin: 16px 0 12px;
-  color: #5b6677;
+  color: #c9d2df;
   font-size: 1.15rem;
   line-height: 1.55;
 }
 
 .article-header time {
-  color: #778293;
+  color: #aab6c6;
   font-size: 0.88rem;
 }
 
@@ -225,21 +240,21 @@
 }
 
 .article-content {
-  color: #303a48;
+  color: #f3f5f8;
   font-size: 1.05rem;
   line-height: 1.8;
 }
 
 .article-content h2 {
   margin: 2.2em 0 0.65em;
-  color: #17202d;
+  color: #fff;
   font-size: 1.65rem;
   line-height: 1.25;
 }
 
 .article-content h3 {
   margin: 1.8em 0 0.5em;
-  color: #17202d;
+  color: #fff;
   font-size: 1.25rem;
 }
 
@@ -255,7 +270,7 @@
 }
 
 .article-content a {
-  color: #176b65;
+  color: #8ee1d3;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
@@ -263,10 +278,10 @@
 .article-content blockquote {
   margin-inline: 0;
   padding: 16px 20px;
-  border-left: 3px solid #176b65;
+  border-left: 3px solid #67cbbb;
   border-radius: 0 8px 8px 0;
-  color: #596575;
-  background: #edf4f2;
+  color: #d2dae5;
+  background: #1c2735;
   font-size: 0.92rem;
 }
 
@@ -286,7 +301,8 @@
 .article-content :not(pre) > code {
   padding: 0.12em 0.35em;
   border-radius: 4px;
-  background: #e9eef1;
+  color: #fff;
+  background: #2a3544;
   font-size: 0.9em;
 }
 
@@ -338,7 +354,7 @@
   }
 
   .article-page {
-    padding-top: 28px;
+    padding: 28px 16px 80px;
   }
 
   .article-page article {
