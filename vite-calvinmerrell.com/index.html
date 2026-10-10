@@ -6,7 +6,7 @@
 <head1>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Beautiful Website with Video Background and Article Features">
+    <meta name="description" content="Calvin W. Merrell's personal website and articles">
     <title> Calvin Merrell</title>
     <style>
         /* General Styles */
@@ -17,32 +17,27 @@
             color: #333;
         }
 
-        /* Video Background */
-        .video-container {
+        /* Sunset hero background */
+        .hero-background {
             position: relative;
-            height: 20vh;
+            height: 30vh;
+            min-height: 220px;
+            max-height: 360px;
             overflow: hidden;
         }
 
-        #bg-video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%);
-            z-index: -1;
-        }
-
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .hero-background img {
+            display: block;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, .2); /* Adds a dark overlay to the video */
+            object-fit: cover;
+            object-position: center 70%;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, .16);
         }
 
         /* Header Styles */
@@ -110,13 +105,10 @@
 </head1>
 <body>
 
-    <!-- Video Background -->
-    <div class="video-container">
-        <video autoplay muted loop id="bg-video">
-            <source src="images/215484_medium.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="video-overlay"></div>
+    <!-- Vernal sunset hero background -->
+    <div class="hero-background">
+        <img src="/images/vernal-sunset.jpeg" alt="">
+        <div class="hero-overlay"></div>
     </div>
 
     <!-- Navigation -->
@@ -166,6 +158,14 @@
         </div>
     </section>
 
+
+    <!-- Vite entry point -->
+    <script type="module" src="/src/HomePage.tsx"></script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+  </body>
     
 </body>
 </html>

@@ -8,11 +8,9 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="video-container">
-        <video autoPlay muted loop id="bg-video">
-          <source src="/images/215484_medium.mp4" type="video/mp4" />
-        </video>
-        <div className="video-overlay"></div>
+      <div className="hero-background">
+        <img src="/images/vernal-sunset.jpeg" alt="" />
+        <div className="hero-overlay"></div>
       </div>
 
       <header>
