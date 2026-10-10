@@ -1,21 +1,52 @@
-import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { getPostBySlug } from './lib/posts';
-import { marked } from 'marked';
+import ReactMarkdown from 'react-markdown';
 
 export default function ArticlePage() {
   const { slug } = useParams();
+  const post = slug ? getPostBySlug(slug) : undefined;
 
-  const post = getPostBySlug(slug!);
+  useEffect(() => {
+    document.title = post
+      ? `${post.title} | Calvin W. Merrell`
+      : 'Article not found | Calvin W. Merrell';
+  }, [post?.title]);
 
-  if (!post) return <p>Article not found</p>;
-
-  const html = marked.parse(post.content);
+  if (!post) {
+    return (
+      <main className="article-page page-container">
+        <p className="eyebrow">Article not found</p>
+        <h1>This article is not available.</h1>
+        <Link className="text-link" to="/">
+          Return to all articles
+        </Link>
+      </main>
+    );
+  }
 
   return (
-    <div style={{ maxWidth: 800, margin: '0 auto' }}>
-      <h1>{post.title}</h1>
-      <img src={post.image} alt={post.title} style={{ width: '100%' }} />
-      <div dangerouslySetInnerHTML={{ __html: html }} />
-    </div>
+    <main className="article-page page-container">
+      <Link className="back-link" to="/">
+        <span aria-hidden="true">←</span> All articles
+      </Link>
+      <article>
+        <header className="article-header">
+          <p className="eyebrow">Article</p>
+          <h1>{post.title}</h1>
+          <p className="article-description">{post.description}</p>
+          <time dateTime={post.date}>
+            {new Intl.DateTimeFormat('en', {
+              dateStyle: 'long',
+              timeZone: 'UTC',
+            }).format(new Date(`${post.date}T00:00:00Z`))}
+          </time>
+        </header>
+        <img className="article-cover" src={post.image} alt="" />
+        <div className="article-content">
+          <ReactMarkdown>{post.content}</ReactMarkdown>
+        </div>
+      </article>
+    </main>
   );
 }
