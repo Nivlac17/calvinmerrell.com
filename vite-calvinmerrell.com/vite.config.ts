@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import matter from 'gray-matter';
 import react from '@vitejs/plugin-react';
-import { defineConfig, type Plugin } from 'vite';
+import { defineConfig, loadEnv, type Plugin } from 'vite';
 
 const projectRoot = fileURLToPath(new URL('.', import.meta.url));
 
@@ -60,6 +60,53 @@ function generateStaticArticleRoutes(): Plugin {
   };
 }
 
-export default defineConfig({
-  plugins: [react(), generateStaticArticleRoutes()],
+function googleAnalyticsTag(measurementId: string | undefined): Plugin {
+  const id = measurementId?.trim();
+
+  if (!id) {
+    return { name: 'google-analytics-tag' };
+  }
+
+  if (!/^G-[A-Z0-9]+$/i.test(id)) {
+    throw new Error('VITE_GA_MEASUREMENT_ID must be a Google Analytics ID such as G-ABC123DEF4.');
+  }
+
+  return {
+    name: 'google-analytics-tag',
+    apply: 'build',
+    transformIndexHtml() {
+      return [
+        {
+          tag: 'script',
+          attrs: {
+            async: true,
+            src: `https://www.googletagmanager.com/gtag/js?id=${id}`,
+          },
+          injectTo: 'head',
+        },
+        {
+          tag: 'script',
+          children: [
+            'window.dataLayer = window.dataLayer || [];',
+            'function gtag(){window.dataLayer.push(arguments);}',
+            "gtag('js', new Date());",
+            `gtag('config', '${id}');`,
+          ].join('\n'),
+          injectTo: 'head',
+        },
+      ];
+    },
+  };
+}
+
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, projectRoot, 'VITE_');
+
+  return {
+    plugins: [
+      react(),
+      googleAnalyticsTag(env.VITE_GA_MEASUREMENT_ID),
+      generateStaticArticleRoutes(),
+    ],
+  };
 });

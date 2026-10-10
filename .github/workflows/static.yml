@@ -34,6 +34,8 @@ jobs:
         run: echo "VITE_BUILD_DATE=$(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> $GITHUB_ENV
 
       - name: Build project
+        env:
+          VITE_GA_MEASUREMENT_ID: G-RQR96YE3ZD
         run: npm run build
 
       - uses: actions/upload-pages-artifact@v3
