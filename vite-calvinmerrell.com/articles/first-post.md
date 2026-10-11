@@ -15,3 +15,6 @@ I can write **markdown** here.
 - Item 1
 - Item 2
 - Item 3
+
+
+###### Article text © 2026 Calvin W. Merrell. Third-party images are credited under their respective licenses.
