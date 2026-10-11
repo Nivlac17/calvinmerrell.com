@@ -41,14 +41,40 @@ function generateStaticArticleRoutes(): Plugin {
 
         const title = typeof data.title === 'string' ? data.title : slug;
         const description = typeof data.description === 'string' ? data.description : title;
+        const articleTitle = `${title} | Calvin W. Merrell`;
+        const articleUrl = `https://calvinmerrell.com/article/${slug}/`;
         const articleHtml = html
           .replace(
             /<title>[\s\S]*?<\/title>/,
-            `<title>${escapeHtml(title)} | Calvin W. Merrell</title>`,
+            `<title>${escapeHtml(articleTitle)}</title>`,
           )
           .replace(
             /<meta\s+name="description"[\s\S]*?>/,
             `<meta name="description" content="${escapeHtml(description)}" />`,
+          )
+          .replace(
+            /<link rel="canonical" href="[^"]*"\s*\/>/,
+            `<link rel="canonical" href="${articleUrl}" />`,
+          )
+          .replace(
+            /<meta property="og:url" content="[^"]*"\s*\/>/,
+            `<meta property="og:url" content="${articleUrl}" />`,
+          )
+          .replace(
+            /<meta property="og:title" content="[^"]*"\s*\/>/,
+            `<meta property="og:title" content="${escapeHtml(articleTitle)}" />`,
+          )
+          .replace(
+            /<meta property="og:description"[\s\S]*?>/,
+            `<meta property="og:description" content="${escapeHtml(description)}" />`,
+          )
+          .replace(
+            /<meta name="twitter:title" content="[^"]*"\s*\/>/,
+            `<meta name="twitter:title" content="${escapeHtml(articleTitle)}" />`,
+          )
+          .replace(
+            /<meta name="twitter:description"[\s\S]*?>/,
+            `<meta name="twitter:description" content="${escapeHtml(description)}" />`,
           );
         const routeDirectory = resolve(outputDirectory, 'article', slug);
         await mkdir(routeDirectory, { recursive: true });
