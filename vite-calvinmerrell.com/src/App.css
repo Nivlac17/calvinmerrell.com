@@ -25,6 +25,26 @@
   pointer-events: auto;
 }
 
+.site-games-link {
+  align-self: flex-start;
+  margin-right: 10px;
+  padding: 9px 14px;
+  border: 1px solid rgb(255 255 255 / 45%);
+  border-radius: 999px;
+  color: #fff;
+  background: rgb(17 24 39 / 76%);
+  font-size: 0.85rem;
+  font-weight: 650;
+  line-height: 1.2;
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  pointer-events: auto;
+}
+
+.site-games-link:hover {
+  background: rgb(17 24 39 / 92%);
+}
+
 .language-menu {
   position: relative;
   pointer-events: auto;

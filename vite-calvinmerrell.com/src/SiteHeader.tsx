@@ -16,6 +16,9 @@ export default function SiteHeader() {
       <Link className="site-home-link" to={pathForLanguage('/', language)}>
         Calvin W. Merrell
       </Link>
+      <a className="site-games-link" href="/games/">
+        Games
+      </a>
       <details className="language-menu">
         <summary>{text.changeLanguage}</summary>
         <nav aria-label={text.changeLanguage}>
