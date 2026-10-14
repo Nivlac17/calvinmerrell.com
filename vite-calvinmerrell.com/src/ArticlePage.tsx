@@ -2,10 +2,14 @@ import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getPostBySlug } from './lib/posts';
 import ReactMarkdown from 'react-markdown';
+import { dateLocales, isLanguage, messages, pathForLanguage, postInLanguage } from './lib/i18n';
 
 export default function ArticlePage() {
-  const { slug } = useParams();
-  const post = slug ? getPostBySlug(slug) : undefined;
+  const { slug, locale: localeParam } = useParams();
+  const locale = localeParam ? (isLanguage(localeParam) ? localeParam : undefined) : 'en';
+  const text = messages[locale ?? 'en'];
+  const originalPost = slug && locale ? getPostBySlug(slug) : undefined;
+  const post = originalPost && locale ? postInLanguage(originalPost, locale) : undefined;
 
   useEffect(() => {
     document.title = post
@@ -16,10 +20,10 @@ export default function ArticlePage() {
   if (!post) {
     return (
       <main className="article-page page-container">
-        <p className="eyebrow">Article not found</p>
-        <h1>This article is not available.</h1>
-        <Link className="text-link" to="/">
-          Return to all articles
+        <p className="eyebrow">{text.articleNotFound}</p>
+        <h1>{text.articleNotAvailable}</h1>
+        <Link className="text-link" to={pathForLanguage('/', locale ?? 'en')}>
+          {text.returnToAllArticles}
         </Link>
       </main>
     );
@@ -27,23 +31,28 @@ export default function ArticlePage() {
 
   return (
     <main className="article-page page-container">
-      <Link className="back-link" to="/">
-        <span aria-hidden="true">←</span> All articles
+      <Link className="back-link" to={pathForLanguage('/', locale!)}>
+        <span aria-hidden="true">←</span> {text.allArticles}
       </Link>
       <article>
         <header className="article-header">
-          <p className="eyebrow">Article</p>
+          <p className="eyebrow">{text.article}</p>
           <h1>{post.title}</h1>
           <p className="article-description">{post.description}</p>
           <time dateTime={post.date}>
-            {new Intl.DateTimeFormat('en', {
+            {new Intl.DateTimeFormat(dateLocales[locale!], {
               dateStyle: 'long',
               timeZone: 'UTC',
             }).format(new Date(`${post.date}T00:00:00Z`))}
           </time>
         </header>
         <img className="article-cover" src={post.image} alt="" />
-        <div className="article-content">
+        {locale !== 'en' && (
+          <p className="article-language-note" lang={locale}>
+            {text.articleInEnglish}
+          </p>
+        )}
+        <div className="article-content" lang="en">
           <ReactMarkdown>{post.content}</ReactMarkdown>
         </div>
       </article>

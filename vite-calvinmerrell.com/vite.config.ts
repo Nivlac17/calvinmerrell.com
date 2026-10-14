@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import matter from 'gray-matter';
 import react from '@vitejs/plugin-react';
 import { defineConfig, loadEnv, type Plugin } from 'vite';
+import { languages, localizedPostDetails, messages, type Language } from './src/lib/i18n';
 
 const projectRoot = fileURLToPath(new URL('.', import.meta.url));
 
@@ -20,6 +21,49 @@ function escapeHtml(value: string): string {
   });
 }
 
+function pageHtml(
+  template: string,
+  language: Language,
+  title: string,
+  description: string,
+  canonicalUrl: string,
+): string {
+  const escapedTitle = escapeHtml(title);
+  const escapedDescription = escapeHtml(description);
+
+  return template
+    .replace(/<html lang="[^"]*"/, `<html lang="${language}"`)
+    .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapedTitle}</title>`)
+    .replace(
+      /<meta\s+name="description"[\s\S]*?>/,
+      `<meta name="description" content="${escapedDescription}" />`,
+    )
+    .replace(
+      /<link rel="canonical" href="[^"]*"\s*\/>/,
+      `<link rel="canonical" href="${canonicalUrl}" />`,
+    )
+    .replace(
+      /<meta property="og:url" content="[^"]*"\s*\/>/,
+      `<meta property="og:url" content="${canonicalUrl}" />`,
+    )
+    .replace(
+      /<meta property="og:title" content="[^"]*"\s*\/>/,
+      `<meta property="og:title" content="${escapedTitle}" />`,
+    )
+    .replace(
+      /<meta property="og:description"[\s\S]*?>/,
+      `<meta property="og:description" content="${escapedDescription}" />`,
+    )
+    .replace(
+      /<meta name="twitter:title" content="[^"]*"\s*\/>/,
+      `<meta name="twitter:title" content="${escapedTitle}" />`,
+    )
+    .replace(
+      /<meta name="twitter:description"[\s\S]*?>/,
+      `<meta name="twitter:description" content="${escapedDescription}" />`,
+    );
+}
+
 function generateStaticArticleRoutes(): Plugin {
   return {
     name: 'generate-static-article-routes',
@@ -30,6 +74,21 @@ function generateStaticArticleRoutes(): Plugin {
       const html = await readFile(resolve(outputDirectory, 'index.html'), 'utf8');
       const files = await readdir(articlesDirectory);
 
+      for (const { code } of languages) {
+        if (code === 'en') continue;
+        const directory = resolve(outputDirectory, code);
+        const url = `https://calvinmerrell.com/${code}/`;
+        const localizedHtml = pageHtml(
+          html,
+          code,
+          messages[code].siteTitle,
+          messages[code].siteDescription,
+          url,
+        );
+        await mkdir(directory, { recursive: true });
+        await writeFile(resolve(directory, 'index.html'), localizedHtml);
+      }
+
       for (const file of files.filter((entry) => entry.endsWith('.md'))) {
         const source = await readFile(resolve(articlesDirectory, file), 'utf8');
         const { data } = matter(source);
@@ -39,46 +98,26 @@ function generateStaticArticleRoutes(): Plugin {
           throw new Error(`Cannot generate an article route for ${file}: invalid slug.`);
         }
 
-        const title = typeof data.title === 'string' ? data.title : slug;
-        const description = typeof data.description === 'string' ? data.description : title;
-        const articleTitle = `${title} | Calvin W. Merrell`;
-        const articleUrl = `https://calvinmerrell.com/article/${slug}/`;
-        const articleHtml = html
-          .replace(
-            /<title>[\s\S]*?<\/title>/,
-            `<title>${escapeHtml(articleTitle)}</title>`,
-          )
-          .replace(
-            /<meta\s+name="description"[\s\S]*?>/,
-            `<meta name="description" content="${escapeHtml(description)}" />`,
-          )
-          .replace(
-            /<link rel="canonical" href="[^"]*"\s*\/>/,
-            `<link rel="canonical" href="${articleUrl}" />`,
-          )
-          .replace(
-            /<meta property="og:url" content="[^"]*"\s*\/>/,
-            `<meta property="og:url" content="${articleUrl}" />`,
-          )
-          .replace(
-            /<meta property="og:title" content="[^"]*"\s*\/>/,
-            `<meta property="og:title" content="${escapeHtml(articleTitle)}" />`,
-          )
-          .replace(
-            /<meta property="og:description"[\s\S]*?>/,
-            `<meta property="og:description" content="${escapeHtml(description)}" />`,
-          )
-          .replace(
-            /<meta name="twitter:title" content="[^"]*"\s*\/>/,
-            `<meta name="twitter:title" content="${escapeHtml(articleTitle)}" />`,
-          )
-          .replace(
-            /<meta name="twitter:description"[\s\S]*?>/,
-            `<meta name="twitter:description" content="${escapeHtml(description)}" />`,
+        const englishTitle = typeof data.title === 'string' ? data.title : slug;
+        const englishDescription =
+          typeof data.description === 'string' ? data.description : englishTitle;
+
+        for (const { code } of languages) {
+          const localized = code === 'en' ? undefined : localizedPostDetails[code][slug];
+          const title = localized?.title ?? englishTitle;
+          const description = localized?.description ?? englishDescription;
+          const articleTitle = `${title} | Calvin W. Merrell`;
+          const localePrefix = code === 'en' ? '' : `${code}/`;
+          const articleUrl = `https://calvinmerrell.com/${localePrefix}article/${slug}/`;
+          const articleHtml = pageHtml(html, code, articleTitle, description, articleUrl);
+          const routeDirectory = resolve(
+            outputDirectory,
+            code === 'en' ? 'article' : `${code}/article`,
+            slug,
           );
-        const routeDirectory = resolve(outputDirectory, 'article', slug);
-        await mkdir(routeDirectory, { recursive: true });
-        await writeFile(resolve(routeDirectory, 'index.html'), articleHtml);
+          await mkdir(routeDirectory, { recursive: true });
+          await writeFile(resolve(routeDirectory, 'index.html'), articleHtml);
+        }
       }
 
       await writeFile(resolve(outputDirectory, '404.html'), html);
