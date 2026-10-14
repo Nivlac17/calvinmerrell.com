@@ -6,7 +6,7 @@ slug: what-is-quantum-computing
 date: 2026-10-14
 ---
 
-*Calvin Merrell · Brigham Young University*
+*Calvin Merrell · Brigham Young University Student*
 
 ## Zusammenfassung
 
