@@ -2,14 +2,13 @@ import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getPostBySlug } from './lib/posts';
 import ReactMarkdown from 'react-markdown';
-import { dateLocales, isLanguage, messages, pathForLanguage, postInLanguage } from './lib/i18n';
+import { dateLocales, isLanguage, messages, pathForLanguage } from './lib/i18n';
 
 export default function ArticlePage() {
   const { slug, locale: localeParam } = useParams();
   const locale = localeParam ? (isLanguage(localeParam) ? localeParam : undefined) : 'en';
   const text = messages[locale ?? 'en'];
-  const originalPost = slug && locale ? getPostBySlug(slug) : undefined;
-  const post = originalPost && locale ? postInLanguage(originalPost, locale) : undefined;
+  const post = slug && locale ? getPostBySlug(slug, locale) : undefined;
 
   useEffect(() => {
     document.title = post
@@ -47,12 +46,7 @@ export default function ArticlePage() {
           </time>
         </header>
         <img className="article-cover" src={post.image} alt="" />
-        {locale !== 'en' && (
-          <p className="article-language-note" lang={locale}>
-            {text.articleInEnglish}
-          </p>
-        )}
-        <div className="article-content" lang="en">
+        <div className="article-content" lang={locale}>
           <ReactMarkdown>{post.content}</ReactMarkdown>
         </div>
       </article>

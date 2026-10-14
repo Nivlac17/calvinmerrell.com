@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { getAllPosts } from './lib/posts';
-import { dateLocales, isLanguage, languageFromPathname, messages, pathForLanguage, postInLanguage } from './lib/i18n';
+import { dateLocales, isLanguage, languageFromPathname, messages, pathForLanguage } from './lib/i18n';
 
 export default function HomePage() {
   const location = useLocation();
@@ -10,7 +10,7 @@ export default function HomePage() {
     ? localeParam
     : languageFromPathname(location.pathname);
   const text = messages[locale];
-  const posts = getAllPosts().map((post) => postInLanguage(post, locale));
+  const posts = getAllPosts(locale);
   const lastUpdated = import.meta.env.VITE_BUILD_DATE;
 
   useEffect(() => {

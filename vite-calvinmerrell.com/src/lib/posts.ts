@@ -54,8 +54,14 @@ function parseFrontmatter(raw: string, path: string) {
   return { data, content: raw.slice(match[0].length) };
 }
 
-export function getAllPosts(): Post[] {
+function languageForPath(path: string): string {
+  const match = path.match(/\.(de|es|ja)\.md$/);
+  return match?.[1] ?? 'en';
+}
+
+export function getAllPosts(language = 'en'): Post[] {
   return Object.entries(modules)
+    .filter(([path]) => languageForPath(path) === language)
     .map(([path, raw]) => {
       const { data, content } = parseFrontmatter(raw, path);
       const slug = requiredText(data.slug, 'slug', path);
@@ -75,6 +81,6 @@ export function getAllPosts(): Post[] {
     .sort((a, b) => b.date.localeCompare(a.date));
 }
 
-export function getPostBySlug(slug: string): Post | undefined {
-  return getAllPosts().find((p) => p.slug === slug);
+export function getPostBySlug(slug: string, language = 'en'): Post | undefined {
+  return getAllPosts(language).find((p) => p.slug === slug);
 }

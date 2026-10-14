@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import matter from 'gray-matter';
 import react from '@vitejs/plugin-react';
 import { defineConfig, loadEnv, type Plugin } from 'vite';
-import { languages, localizedPostDetails, messages, type Language } from './src/lib/i18n';
+import { languages, messages, type Language } from './src/lib/i18n';
 
 const projectRoot = fileURLToPath(new URL('.', import.meta.url));
 
@@ -98,26 +98,21 @@ function generateStaticArticleRoutes(): Plugin {
           throw new Error(`Cannot generate an article route for ${file}: invalid slug.`);
         }
 
-        const englishTitle = typeof data.title === 'string' ? data.title : slug;
-        const englishDescription =
-          typeof data.description === 'string' ? data.description : englishTitle;
-
-        for (const { code } of languages) {
-          const localized = code === 'en' ? undefined : localizedPostDetails[code][slug];
-          const title = localized?.title ?? englishTitle;
-          const description = localized?.description ?? englishDescription;
-          const articleTitle = `${title} | Calvin W. Merrell`;
-          const localePrefix = code === 'en' ? '' : `${code}/`;
-          const articleUrl = `https://calvinmerrell.com/${localePrefix}article/${slug}/`;
-          const articleHtml = pageHtml(html, code, articleTitle, description, articleUrl);
-          const routeDirectory = resolve(
-            outputDirectory,
-            code === 'en' ? 'article' : `${code}/article`,
-            slug,
-          );
-          await mkdir(routeDirectory, { recursive: true });
-          await writeFile(resolve(routeDirectory, 'index.html'), articleHtml);
-        }
+        const localeMatch = file.match(/\.(de|es|ja)\.md$/);
+        const language = (localeMatch?.[1] ?? 'en') as Language;
+        const title = typeof data.title === 'string' ? data.title : slug;
+        const description = typeof data.description === 'string' ? data.description : title;
+        const articleTitle = `${title} | Calvin W. Merrell`;
+        const localePrefix = language === 'en' ? '' : `${language}/`;
+        const articleUrl = `https://calvinmerrell.com/${localePrefix}article/${slug}/`;
+        const articleHtml = pageHtml(html, language, articleTitle, description, articleUrl);
+        const routeDirectory = resolve(
+          outputDirectory,
+          language === 'en' ? 'article' : `${language}/article`,
+          slug,
+        );
+        await mkdir(routeDirectory, { recursive: true });
+        await writeFile(resolve(routeDirectory, 'index.html'), articleHtml);
       }
 
       await writeFile(resolve(outputDirectory, '404.html'), html);
