@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f8f7f2">
+<title>Pocket Piano | Little Arcade</title>
+<link rel="stylesheet" href="/games/arcade.css">
+<script src="/games/js/analytics.js"></script>
+</head>
+<body data-game="piano">
+<div class="shell">
+<aside>
+<a class="brand" href="/games/" aria-label="Little Arcade home"><span class="brand-mark">✳</span><span class="brand-name">little arcade<span>.</span></span></a>
+<p class="eyebrow">Your game room</p>
+<nav class="nav" aria-label="Main navigation"><a href="/games/">← All games</a></nav>
+<div class="aside-bottom"><div class="aside-note"><b>A little play goes a long way.</b>Pick a game, take a breath, and enjoy a tiny break.</div><div class="aside-foot">MADE FOR YOUR MINI BREAKS · 2026</div></div>
+</aside>
+<main>
+<div class="topbar"><div class="crumb"><a href="/games/">ARCADE</a> &nbsp;/&nbsp; <b>Pocket Piano</b></div><div class="top-actions"><div class="pill"><i class="dot"></i>Game ready</div><div class="avatar" aria-hidden="true">☀️</div></div></div>
+<section class="view active" id="view-piano">
+        <div class="game-heading"><div><h1>Pocket Piano</h1><p>Tap the keys or use your keyboard to play.</p></div><a class="back-button" href="/games/">← All games</a></div>
+        <div class="game-shell piano-shell"><div class="piano-top"><span class="piano-label">LITTLE ARCADE · C MAJOR</span><span id="piano-note">Pick a key ♪</span></div><div id="piano-keys" class="piano-keys" aria-label="Piano keys"></div><p class="game-help">Keyboard: A W S E D F T G Y H U J K</p></div>
+      </section>
+</main>
+</div>
+<div class="overlay" id="win-overlay"><div class="dialog"><div class="dialog-icon" id="dialog-icon">🎉</div><h2 id="dialog-title">You did it!</h2><p id="dialog-copy">Nice work.</p><button class="action-button primary" id="dialog-action">Play again</button></div></div>
+<script src="/games/js/shared.js"></script>
+<script src="/games/js/pocket-piano.js"></script>
+<script src="/games/js/keyboard.js"></script>
+</body>
+</html>
