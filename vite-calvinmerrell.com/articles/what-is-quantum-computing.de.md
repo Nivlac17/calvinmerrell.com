@@ -1,7 +1,7 @@
 ---
 title: "Was ist Quantencomputing? Erklärt für Informatikstudierende im Bachelor"
 description: Ein Leitfaden für Informatikstudierende zu Bits, Qubits, Superposition, Verschränkung, Interferenz, Quantenalgorithmen und den Folgen für RSA.
-image: /images/technology-1283624_1920.jpg
+image: /images/programmer-at-a-computer.jpeg
 slug: what-is-quantum-computing
 date: 2026-10-14
 ---

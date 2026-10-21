@@ -1,7 +1,7 @@
 ---
 title: "What Is Quantum Computing? Explained for Computer Science Bachelor's Students"
 description: A computer science student's guide to bits, qubits, superposition, entanglement, interference, quantum algorithms, and the implications for RSA.
-image: /images/technology-1283624_1920.jpg
+image: /images/programmer-at-a-computer.jpeg
 slug: what-is-quantum-computing
 date: 2026-10-14
 ---
