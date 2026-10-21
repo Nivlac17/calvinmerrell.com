@@ -3,6 +3,7 @@ export const languages = [
   { code: 'de', name: 'Deutsch' },
   { code: 'es', name: 'Español' },
   { code: 'ja', name: '日本語' },
+  { code: 'ru', name: 'Русский' },
 ] as const;
 
 export type Language = (typeof languages)[number]['code'];
@@ -34,6 +35,7 @@ export const messages = {
     siteTitle: 'Calvin W. Merrell | Articles',
     siteDescription: 'Articles and notes on technology, computing, and ideas from Calvin W. Merrell.',
     changeLanguage: 'Change language',
+    games: 'Games',
     personalBlog: 'Personal blog',
     heroSubtitle: 'Notes on technology, computing, and ideas.',
     heroImageAlt: 'Sunset over the Vernal landscape',
@@ -54,6 +56,7 @@ export const messages = {
     siteTitle: 'Calvin W. Merrell | Artikel',
     siteDescription: 'Artikel und Notizen zu Technologie, Informatik und Ideen von Calvin W. Merrell.',
     changeLanguage: 'Sprache ändern',
+    games: 'Spiele',
     personalBlog: 'Persönlicher Blog',
     heroSubtitle: 'Notizen zu Technologie, Informatik und Ideen.',
     heroImageAlt: 'Sonnenuntergang über der Landschaft bei Vernal',
@@ -74,6 +77,7 @@ export const messages = {
     siteTitle: 'Calvin W. Merrell | Artículos',
     siteDescription: 'Artículos y notas sobre tecnología, informática e ideas de Calvin W. Merrell.',
     changeLanguage: 'Cambiar idioma',
+    games: 'Juegos',
     personalBlog: 'Blog personal',
     heroSubtitle: 'Notas sobre tecnología, informática e ideas.',
     heroImageAlt: 'Atardecer sobre el paisaje de Vernal',
@@ -94,6 +98,7 @@ export const messages = {
     siteTitle: 'Calvin W. Merrell | 記事',
     siteDescription: 'Calvin W. Merrellによるテクノロジー、コンピューティング、アイデアに関する記事とメモ。',
     changeLanguage: '言語を変更',
+    games: 'ゲーム',
     personalBlog: '個人ブログ',
     heroSubtitle: 'テクノロジー、コンピューティング、アイデアに関するメモ。',
     heroImageAlt: 'バーナルの風景に沈む夕日',
@@ -110,6 +115,27 @@ export const messages = {
     pageMoved: 'ページが移動したか、アドレスが正しくない可能性があります。',
     loading: '記事を読み込んでいます…',
   },
+  ru: {
+    siteTitle: 'Кэлвин У. Меррелл | Статьи',
+    siteDescription: 'Статьи и заметки о технологиях, информатике и идеях от Кэлвина У. Меррелла.',
+    changeLanguage: 'Выбрать язык',
+    games: 'Игры',
+    personalBlog: 'Личный блог',
+    heroSubtitle: 'Заметки о технологиях, информатике и идеях.',
+    heroImageAlt: 'Закат над окрестностями Вернала',
+    fromTheBlog: 'Из блога',
+    latestArticles: 'Последние статьи',
+    updated: 'Обновлено',
+    emptyState: 'Скоро появятся новые статьи.',
+    article: 'Статья',
+    allArticles: 'Все статьи',
+    articleNotFound: 'Статья не найдена',
+    articleNotAvailable: 'Эта статья сейчас недоступна.',
+    returnToAllArticles: 'Вернуться ко всем статьям',
+    pageNotFound: 'Страница не найдена',
+    pageMoved: 'Возможно, страница перемещена или адрес указан неверно.',
+    loading: 'Загрузка статьи…',
+  },
 } satisfies Record<Language, Record<string, string>>;
 
 export const dateLocales: Record<Language, string> = {
@@ -117,4 +143,5 @@ export const dateLocales: Record<Language, string> = {
   de: 'de-DE',
   es: 'es-ES',
   ja: 'ja-JP',
+  ru: 'ru-RU',
 };

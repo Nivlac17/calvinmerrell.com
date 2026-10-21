@@ -98,7 +98,7 @@ function generateStaticArticleRoutes(): Plugin {
           throw new Error(`Cannot generate an article route for ${file}: invalid slug.`);
         }
 
-        const localeMatch = file.match(/\.(de|es|ja)\.md$/);
+        const localeMatch = file.match(/\.(de|es|ja|ru)\.md$/);
         const language = (localeMatch?.[1] ?? 'en') as Language;
         const title = typeof data.title === 'string' ? data.title : slug;
         const description = typeof data.description === 'string' ? data.description : title;

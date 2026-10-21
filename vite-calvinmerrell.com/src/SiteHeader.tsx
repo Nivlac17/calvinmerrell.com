@@ -17,7 +17,7 @@ export default function SiteHeader() {
         Calvin W. Merrell
       </Link>
       <a className="site-games-link" href="/games/">
-        Games
+        {text.games}
       </a>
       <details className="language-menu">
         <summary>{text.changeLanguage}</summary>

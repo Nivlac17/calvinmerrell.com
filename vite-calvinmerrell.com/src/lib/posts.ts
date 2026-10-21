@@ -55,7 +55,7 @@ function parseFrontmatter(raw: string, path: string) {
 }
 
 function languageForPath(path: string): string {
-  const match = path.match(/\.(de|es|ja)\.md$/);
+  const match = path.match(/\.(de|es|ja|ru)\.md$/);
   return match?.[1] ?? 'en';
 }
 
