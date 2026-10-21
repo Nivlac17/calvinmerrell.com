@@ -1,7 +1,7 @@
 ---
 title: "¿Qué es la computación cuántica? Explicada para estudiantes de informática"
 description: Una guía para estudiantes de informática sobre bits, cúbits, superposición, entrelazamiento, interferencia, algoritmos cuánticos y sus implicaciones para RSA.
-image: /images/programmer-at-a-computer.jpeg
+image: /images/technology-1283624_1920.jpg
 slug: what-is-quantum-computing
 date: 2026-10-14
 ---
