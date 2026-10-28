@@ -59,7 +59,7 @@
     return spawns.map((spawn, i) => ({
       x: spawn.x * TILE, y: spawn.y * TILE, dir: spawn.dir, color: spawn.color,
       player: !!spawn.player, lives: 2, spawn: i, alive: true, fireClock: .5 + i * .3,
-      routeTarget: null, stun: 0,
+      routeTarget: null, blockedTime: 0, blockedDir: null, stun: 0,
     }));
   }
 
@@ -127,7 +127,7 @@
     ctx.fillStyle = '#ffffff35';
     roundRect(-10, -9, 20, 5, 3); ctx.fill();
     ctx.fillStyle = '#27343b';
-    roundRect(-3.5, -19, 7, 24, 3); ctx.fill();
+    roundRect(-2, -3.5, 23, 7, 3); ctx.fill();
     ctx.fillStyle = '#e9dfbb';
     ctx.beginPath(); ctx.arc(0, 0, 6, 0, Math.PI * 2); ctx.fill();
     ctx.fillStyle = '#596769';
@@ -219,12 +219,22 @@
       const v = vectors[dir]; return { x: target.x + v.x, y: target.y + v.y };
     }).filter(cell => walkableCell(cell.x, cell.y, tank));
     goals.sort((a, b) => (Math.abs(a.x - start.x) + Math.abs(a.y - start.y)) - (Math.abs(b.x - start.x) + Math.abs(b.y - start.y)));
+    if (goals.some(goal => goal.x === start.x && goal.y === start.y)) return [];
     for (const goal of goals) {
-      if (goal.x === start.x && goal.y === start.y) return null;
       const next = nextPathCell(start, goal, tank);
-      if (next) return next;
+      if (next) {
+        const direction = next[0] > start.x ? 'right' : next[0] < start.x ? 'left' : next[1] > start.y ? 'down' : 'up';
+        if (direction !== tank.blockedDir) return next;
+      }
     }
-    return null;
+    const options = ['up', 'right', 'down', 'left'].filter(direction => {
+      if (direction === tank.blockedDir) return false;
+      const v = vectors[direction], x = start.x + v.x, y = start.y + v.y;
+      return walkableCell(x, y, tank) && canMove(tank, (x + .5) * TILE, (y + .5) * TILE);
+    });
+    if (!options.length) return null;
+    const direction = options[Math.floor(Math.random() * options.length)], v = vectors[direction];
+    return [start.x + v.x, start.y + v.y];
   }
 
   function damageTank(target, owner) {
@@ -248,6 +258,7 @@
       target.y = spawns[target.spawn].y * TILE;
       target.dir = spawns[target.spawn].dir;
       target.routeTarget = null;
+      target.blockedTime = 0; target.blockedDir = null;
     }
   }
 
@@ -309,7 +320,7 @@
       else if (Math.abs(tank.y - centerY) > 1.5) destination = { x: tank.x, y: centerY };
       else {
         const next = nextCpuCell(tank, player);
-        if (next) destination = { x: (next[0] + .5) * TILE, y: (next[1] + .5) * TILE };
+        if (next?.length) destination = { x: (next[0] + .5) * TILE, y: (next[1] + .5) * TILE };
       }
       tank.routeTarget = destination;
     }
@@ -322,7 +333,22 @@
     if (canMove(tank, nx, ny)) {
       tank.x = step === distance ? destination.x : nx;
       tank.y = step === distance ? destination.y : ny;
-      if (step === distance) tank.routeTarget = null;
+      tank.blockedTime = 0;
+      if (step === distance) {
+        tank.routeTarget = null; tank.blockedDir = null;
+      }
+    } else {
+      tank.blockedTime += dt;
+      if (tank.blockedTime >= .22) {
+        tank.routeTarget = null; tank.blockedTime = 0; tank.blockedDir = moveDir;
+        const cell = cellAt(tank.x, tank.y), centerX = (cell.x + .5) * TILE, centerY = (cell.y + .5) * TILE;
+        if (Math.abs(tank.x - centerX) > 1.5 && canMove(tank, centerX, tank.y)) tank.routeTarget = { x: centerX, y: tank.y };
+        else if (Math.abs(tank.y - centerY) > 1.5 && canMove(tank, tank.x, centerY)) tank.routeTarget = { x: tank.x, y: centerY };
+        else {
+          const next = nextCpuCell(tank, player);
+          if (next?.length) tank.routeTarget = { x: (next[0] + .5) * TILE, y: (next[1] + .5) * TILE };
+        }
+      }
     }
   }
 
