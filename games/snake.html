@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f8f7f2">
+<title>Snake | Little Arcade</title>
+<link rel="stylesheet" href="/games/arcade.css">
+<script src="/games/js/analytics.js"></script>
+</head>
+<body data-game="snake">
+<div class="shell">
+<aside>
+<a class="brand" href="/games/" aria-label="Little Arcade home"><span class="brand-mark">✳</span><span class="brand-name">little arcade<span>.</span></span></a>
+<p class="eyebrow">Your game room</p>
+<nav class="nav" aria-label="Main navigation"><a href="/games/">← All games</a></nav>
+<div class="aside-bottom"><div class="aside-note"><b>A little play goes a long way.</b>Pick a game, take a breath, and enjoy a tiny break.</div><div class="aside-foot">MADE FOR YOUR MINI BREAKS · 2026</div></div>
+</aside>
+<main>
+<div class="topbar"><div class="crumb"><a href="/games/">ARCADE</a> &nbsp;/&nbsp; <b>Snake</b></div><div class="top-actions"><div class="pill"><i class="dot"></i>Game ready</div><div class="avatar" aria-hidden="true">☀️</div></div></div>
+<section class="view active" id="view-snake">
+        <div class="game-heading"><div><h1>Snake</h1><p>Eat the fruit. Grow your snake. Stay in bounds.</p></div><a class="back-button" href="/games/">← All games</a></div>
+        <div class="game-shell"><div class="game-toolbar"><div class="stats"><div class="stat"><span>Score</span><b id="snake-score">0</b></div><div class="stat"><span>Best</span><b id="snake-best">0</b></div></div><div class="toolbar-actions"><button class="action-button" id="snake-pause">Ⅱ Pause</button><button class="action-button primary" id="snake-start">▶ Start</button></div></div><div class="snake-area"><canvas class="snake-board" id="snake-canvas" width="540" height="540" aria-label="Snake game board"></canvas><p class="snake-hint" id="snake-message">Press Start, then use arrow keys or WASD.</p><div class="mobile-pad" aria-label="Direction controls"><button data-dir="up" aria-label="Up">↑</button><button data-dir="left" aria-label="Left">←</button><button data-dir="down" aria-label="Down">↓</button><button data-dir="right" aria-label="Right">→</button></div></div></div>
+      </section>
+</main>
+</div>
+<div class="overlay" id="win-overlay"><div class="dialog"><div class="dialog-icon" id="dialog-icon">🎉</div><h2 id="dialog-title">You did it!</h2><p id="dialog-copy">Nice work.</p><button class="action-button primary" id="dialog-action">Play again</button></div></div>
+<script src="/games/js/shared.js"></script>
+<script src="/games/js/snake.js"></script>
+<script src="/games/js/keyboard.js"></script>
+</body>
+</html>
