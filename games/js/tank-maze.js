@@ -19,13 +19,14 @@
     '##################',
   ];
   const scoreEl = document.querySelector('#tank-kos');
+  const levelEl = document.querySelector('#tank-level');
   const livesEl = document.querySelector('#tank-lives');
   const rivalsEl = document.querySelector('#tank-rivals');
   const messageEl = document.querySelector('#tank-message');
   const startButton = document.querySelector('#tank-start');
   const pauseButton = document.querySelector('#tank-pause');
   const wallColors = ['#d8bd8c', '#bc986c', '#98744f'];
-  const colors = { player: '#74b85e', red: '#ee7961', blue: '#73aee0', purple: '#bd91d6' };
+  const colors = { player: '#74b85e', red: '#ee7961', blue: '#73aee0', purple: '#bd91d6', amber: '#e8b45d', mint: '#60b7a6', rose: '#dc82a8', gold: '#dfd068' };
   let maze = [];
   let tanks = [];
   let bullets = [];
@@ -35,6 +36,10 @@
   let paused = false;
   let finished = false;
   let won = false;
+  let level = 1;
+  let levelTransition = false;
+  let transitionTimer = 0;
+  let nextLevel = 2;
   let lastTime = 0;
   let rafId = null;
   let elapsed = 0;
@@ -46,6 +51,11 @@
     { x: 16.5, y: 1.5, dir: 'left', color: colors.red },
     { x: 1.5, y: 12.5, dir: 'right', color: colors.blue },
     { x: 16.5, y: 12.5, dir: 'left', color: colors.purple },
+    { x: 8.5, y: 1.5, dir: 'down', color: colors.amber },
+    { x: 8.5, y: 12.5, dir: 'up', color: colors.mint },
+    { x: 1.5, y: 6.5, dir: 'right', color: colors.rose },
+    { x: 16.5, y: 6.5, dir: 'left', color: colors.gold },
+    { x: 8.5, y: 6.5, dir: 'down', color: colors.red },
   ];
   const vectors = { up: { x: 0, y: -1 }, right: { x: 1, y: 0 }, down: { x: 0, y: 1 }, left: { x: -1, y: 0 } };
 
@@ -55,10 +65,14 @@
     })));
   }
 
-  function resetTanks() {
-    return spawns.map((spawn, i) => ({
+  function resetTanks(playerLives = 2) {
+    const rivals = Math.min(level + 2, spawns.length - 1);
+    return spawns.slice(0, rivals + 1).map((spawn, i) => ({
       x: spawn.x * TILE, y: spawn.y * TILE, dir: spawn.dir, color: spawn.color,
-      player: !!spawn.player, lives: 2, spawn: i, alive: true, fireClock: .5 + i * .3,
+      player: !!spawn.player, lives: i === 0 ? playerLives : 2, spawn: i, alive: true,
+      speed: i === 0 ? 145 : Math.min(88 + (level - 1) * 11, 176),
+      fireInterval: i === 0 ? .34 : Math.max(.42, .95 - (level - 1) * .09),
+      fireClock: i === 0 ? .5 : .6 + Math.random() * 1.2,
       routeTarget: null, blockedTime: 0, blockedDir: null, stun: 0,
     }));
   }
@@ -153,12 +167,15 @@
       ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
     });
     ctx.globalAlpha = 1;
-    if (!running) {
+    if (!running || levelTransition) {
       ctx.fillStyle = '#10191ebd'; ctx.fillRect(0, 0, W, H);
       ctx.textAlign = 'center'; ctx.fillStyle = '#fff'; ctx.font = '700 34px "Space Grotesk", sans-serif';
-      ctx.fillText(finished ? (won ? 'Maze cleared!' : 'Tank knocked out') : paused ? 'Paused' : 'Ready, commander?', W / 2, H / 2 - 12);
+      const title = levelTransition ? `Level ${level} cleared!` : finished ? (won ? 'Maze cleared!' : 'Tank knocked out') : paused ? 'Paused' : 'Ready, commander?';
+      const rivalsComing = Math.min(nextLevel + 2, spawns.length - 1);
+      const copy = levelTransition ? `Level ${nextLevel}: ${rivalsComing} faster rival tanks incoming.` : finished ? `${kills} rival${kills === 1 ? '' : 's'} defeated` : 'Break the blocks. Outsmart the rival tanks.';
+      ctx.fillText(title, W / 2, H / 2 - 12);
       ctx.fillStyle = '#e5e7dc'; ctx.font = '500 14px "DM Sans", sans-serif';
-      ctx.fillText(finished ? `${kills} rival${kills === 1 ? '' : 's'} defeated` : 'Break the blocks. Outsmart the rival tanks.', W / 2, H / 2 + 20);
+      ctx.fillText(copy, W / 2, H / 2 + 20);
     }
   }
 
@@ -251,7 +268,10 @@
       }
       const aliveRivals = tanks.slice(1).filter(tank => tank.alive).length;
       rivalsEl.textContent = aliveRivals;
-      if (aliveRivals === 0) endGame(true);
+      if (aliveRivals === 0) {
+        levelTransition = true; transitionTimer = 1.6; nextLevel = level + 1;
+        messageEl.textContent = `Level ${level} cleared! Level ${nextLevel} brings more, faster rivals.`;
+      }
     } else {
       target.stun = .7;
       target.x = spawns[target.spawn].x * TILE;
@@ -276,8 +296,13 @@
         } else burst(bullet.x, bullet.y, '#8b9b9b', 3);
         bullets.splice(i, 1); continue;
       }
-      const target = tanks.find(tank => tank.alive && tank !== bullet.owner && Math.hypot(tank.x - bullet.x, tank.y - bullet.y) < 17);
-      if (target) { bullets.splice(i, 1); damageTank(target, bullet.owner); }
+      const target = bullet.owner.player
+        ? tanks.find(tank => !tank.player && tank.alive && Math.hypot(tank.x - bullet.x, tank.y - bullet.y) < 17)
+        : tanks[0].alive && Math.hypot(tanks[0].x - bullet.x, tanks[0].y - bullet.y) < 17 ? tanks[0] : null;
+      if (target) {
+        bullets.splice(i, 1); damageTank(target, bullet.owner);
+        if (levelTransition) break;
+      }
     }
   }
 
@@ -290,12 +315,12 @@
     else if (keys.ArrowLeft || keys.KeyA) direction = 'left';
     if (direction) {
       player.dir = direction;
-      const v = vectors[direction], speed = 145;
+      const v = vectors[direction], speed = player.speed;
       const nx = player.x + v.x * speed * dt, ny = player.y + v.y * speed * dt;
       if (canMove(player, nx, ny)) { player.x = nx; player.y = ny; }
     }
     player.fireClock -= dt;
-    if (keys.Space && player.fireClock <= 0) { fire(player); player.fireClock = .34; }
+    if (keys.Space && player.fireClock <= 0) { fire(player); player.fireClock = player.fireInterval; }
   }
 
   function updateCpu(tank, dt) {
@@ -306,7 +331,7 @@
     if (aim) tank.dir = aim;
     if (tank.fireClock <= 0) {
       if (aim) fire(tank);
-      tank.fireClock = .85 + Math.random() * .6;
+      tank.fireClock = tank.fireInterval + Math.random() * .22;
     }
     if (tank.stun > 0) return;
     let destination = tank.routeTarget;
@@ -328,7 +353,7 @@
     const dx = destination.x - tank.x, dy = destination.y - tank.y;
     const moveDir = Math.abs(dx) > .5 ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up');
     if (!aim) tank.dir = moveDir;
-    const v = vectors[moveDir], distance = Math.hypot(dx, dy), step = Math.min(88 * dt, distance);
+    const v = vectors[moveDir], distance = Math.hypot(dx, dy), step = Math.min(tank.speed * dt, distance);
     const nx = tank.x + v.x * step, ny = tank.y + v.y * step;
     if (canMove(tank, nx, ny)) {
       tank.x = step === distance ? destination.x : nx;
@@ -354,9 +379,25 @@
 
   function update(dt) {
     frame++; elapsed += dt;
+    if (levelTransition) {
+      particles.forEach(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= .98; p.vy *= .98; p.life -= dt; });
+      particles = particles.filter(p => p.life > 0);
+      transitionTimer -= dt;
+      if (transitionTimer <= 0) advanceLevel();
+      return;
+    }
     updatePlayer(dt);
     tanks.slice(1).forEach(tank => updateCpu(tank, dt));
     updateBullets(dt);
+    if (!tanks[0].alive) { bullets = []; endGame(false); return; }
+    if (levelTransition) {
+      bullets = [];
+      particles.forEach(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= .98; p.vy *= .98; p.life -= dt; });
+      particles = particles.filter(p => p.life > 0);
+      transitionTimer -= dt;
+      if (transitionTimer <= 0) advanceLevel();
+      return;
+    }
     particles.forEach(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= .98; p.vy *= .98; p.life -= dt; });
     particles = particles.filter(p => p.life > 0);
     if (!tanks[0].alive && !finished) endGame(false);
@@ -369,18 +410,31 @@
     if (running) rafId = requestAnimationFrame(loop); else rafId = null;
   }
 
+  function advanceLevel() {
+    level = nextLevel;
+    maze = makeMaze();
+    tanks = resetTanks(tanks[0].lives);
+    bullets = []; particles = []; keys = Object.create(null);
+    levelEl.textContent = level;
+    livesEl.textContent = tanks[0].lives;
+    rivalsEl.textContent = tanks.length - 1;
+    levelTransition = false;
+    messageEl.textContent = `Level ${level} — ${tanks.length - 1} rivals, moving faster!`;
+  }
+
   function startGame() {
     if (rafId !== null) cancelAnimationFrame(rafId);
+    level = 1; nextLevel = 2; levelTransition = false; transitionTimer = 0;
     maze = makeMaze(); tanks = resetTanks(); bullets = []; particles = []; keys = Object.create(null);
     running = true; paused = false; finished = false; won = false; kills = 0; elapsed = 0;
-    scoreEl.textContent = '0'; livesEl.textContent = '2'; rivalsEl.textContent = '3';
-    messageEl.textContent = 'Drive with ← → ↑ ↓ or WASD · Space to fire · Every wall takes 3 hits';
+    levelEl.textContent = '1'; scoreEl.textContent = '0'; livesEl.textContent = '2'; rivalsEl.textContent = String(tanks.length - 1);
+    messageEl.textContent = 'Drive with arrows or WASD · Space to fire · Clear rivals to level up';
     startButton.textContent = '↻ Restart'; pauseButton.textContent = 'Ⅱ Pause'; pauseButton.disabled = false;
     lastTime = performance.now(); rafId = requestAnimationFrame(loop);
   }
 
   function endGame(playerWon) {
-    running = false; finished = true; won = playerWon; keys = Object.create(null);
+    running = false; finished = true; won = playerWon; levelTransition = false; keys = Object.create(null);
     pauseButton.disabled = true; startButton.textContent = '↻ Play again';
     messageEl.textContent = playerWon ? `You cleared the maze! ${kills} rival tanks defeated.` : `Your tank is out. You defeated ${kills} rival${kills === 1 ? '' : 's'}.`;
     draw();
@@ -394,7 +448,7 @@
       pauseButton.textContent = '▶ Resume'; messageEl.textContent = 'Paused — your rivals are taking a breather too.'; draw();
     } else {
       running = true; paused = false; pauseButton.textContent = 'Ⅱ Pause';
-      messageEl.textContent = 'Drive with ← → ↑ ↓ or WASD · Space to fire · Every wall takes 3 hits';
+      messageEl.textContent = 'Drive with arrows or WASD · Space to fire · Clear rivals to level up';
       lastTime = performance.now(); rafId = requestAnimationFrame(loop);
     }
   }
