@@ -25,6 +25,7 @@
   const messageEl = document.querySelector('#tank-message');
   const startButton = document.querySelector('#tank-start');
   const pauseButton = document.querySelector('#tank-pause');
+  const continueButton = document.querySelector('#tank-continue');
   const wallColors = ['#d8bd8c', '#bc986c', '#98744f'];
   const colors = { player: '#74b85e', red: '#ee7961', blue: '#73aee0', purple: '#bd91d6', amber: '#e8b45d', mint: '#60b7a6', rose: '#dc82a8', gold: '#dfd068' };
   let maze = [];
@@ -38,7 +39,6 @@
   let won = false;
   let level = 1;
   let levelTransition = false;
-  let transitionTimer = 0;
   let nextLevel = 2;
   let lastTime = 0;
   let rafId = null;
@@ -269,8 +269,12 @@
       const aliveRivals = tanks.slice(1).filter(tank => tank.alive).length;
       rivalsEl.textContent = aliveRivals;
       if (aliveRivals === 0) {
-        levelTransition = true; transitionTimer = 1.6; nextLevel = level + 1;
-        messageEl.textContent = `Level ${level} cleared! Level ${nextLevel} brings more, faster rivals.`;
+        levelTransition = true; nextLevel = level + 1;
+        running = false; paused = false; keys = Object.create(null);
+        pauseButton.disabled = true;
+        continueButton.textContent = `Continue to Level ${nextLevel}`;
+        continueButton.hidden = false;
+        messageEl.textContent = `Level ${level} cleared! Continue when you’re ready for more, faster rivals.`;
       }
     } else {
       target.stun = .7;
@@ -379,25 +383,12 @@
 
   function update(dt) {
     frame++; elapsed += dt;
-    if (levelTransition) {
-      particles.forEach(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= .98; p.vy *= .98; p.life -= dt; });
-      particles = particles.filter(p => p.life > 0);
-      transitionTimer -= dt;
-      if (transitionTimer <= 0) advanceLevel();
-      return;
-    }
+    if (levelTransition) return;
     updatePlayer(dt);
     tanks.slice(1).forEach(tank => updateCpu(tank, dt));
     updateBullets(dt);
     if (!tanks[0].alive) { bullets = []; endGame(false); return; }
-    if (levelTransition) {
-      bullets = [];
-      particles.forEach(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= .98; p.vy *= .98; p.life -= dt; });
-      particles = particles.filter(p => p.life > 0);
-      transitionTimer -= dt;
-      if (transitionTimer <= 0) advanceLevel();
-      return;
-    }
+    if (levelTransition) { bullets = []; return; }
     particles.forEach(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= .98; p.vy *= .98; p.life -= dt; });
     particles = particles.filter(p => p.life > 0);
     if (!tanks[0].alive && !finished) endGame(false);
@@ -419,12 +410,18 @@
     livesEl.textContent = tanks[0].lives;
     rivalsEl.textContent = tanks.length - 1;
     levelTransition = false;
+    continueButton.hidden = true;
+    running = true; paused = false;
+    pauseButton.disabled = false; pauseButton.textContent = 'Ⅱ Pause';
+    startButton.textContent = '↻ Restart';
     messageEl.textContent = `Level ${level} — ${tanks.length - 1} rivals, moving faster!`;
+    lastTime = performance.now();
+    rafId = requestAnimationFrame(loop);
   }
 
   function startGame() {
     if (rafId !== null) cancelAnimationFrame(rafId);
-    level = 1; nextLevel = 2; levelTransition = false; transitionTimer = 0;
+    level = 1; nextLevel = 2; levelTransition = false; continueButton.hidden = true;
     maze = makeMaze(); tanks = resetTanks(); bullets = []; particles = []; keys = Object.create(null);
     running = true; paused = false; finished = false; won = false; kills = 0; elapsed = 0;
     levelEl.textContent = '1'; scoreEl.textContent = '0'; livesEl.textContent = '2'; rivalsEl.textContent = String(tanks.length - 1);
@@ -473,6 +470,7 @@
   ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(type => fireButton.addEventListener(type, () => setMobileKey('Space', false)));
   startButton.addEventListener('click', startGame);
   pauseButton.addEventListener('click', togglePause);
+  continueButton.addEventListener('click', () => { if (levelTransition) advanceLevel(); });
   maze = makeMaze();
   tanks = resetTanks();
   draw();
