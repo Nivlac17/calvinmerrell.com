@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f8f7f2">
+<title>Tank Maze | Little Arcade</title>
+<link rel="stylesheet" href="/games/arcade.css">
+<script src="/games/js/analytics.js"></script>
+</head>
+<body data-game="tank-maze">
+<div class="shell">
+<aside>
+<a class="brand" href="/games/" aria-label="Little Arcade home"><span class="brand-mark">✳</span><span class="brand-name">little arcade<span>.</span></span></a>
+<p class="eyebrow">Your game room</p>
+<nav class="nav" aria-label="Main navigation"><a href="/games/">← All games</a></nav>
+<div class="aside-bottom"><div class="aside-note"><b>A little play goes a long way.</b>Pick a game, take a breath, and enjoy a tiny break.</div><div class="aside-foot">MADE FOR YOUR MINI BREAKS · 2026</div></div>
+</aside>
+<main>
+<div class="topbar"><div class="crumb"><a href="/games/">ARCADE</a> &nbsp;/&nbsp; <b>Tank Maze</b></div><div class="top-actions"><div class="pill"><i class="dot"></i>Game ready</div><div class="avatar" aria-hidden="true">☀️</div></div></div>
+<section class="view active" id="view-tank-maze">
+  <div class="game-heading"><div><h1>Tank Maze</h1><p>Outmaneuver three rival tanks. Break through the maze and stay in the fight.</p></div><a class="back-button" href="/games/">← All games</a></div>
+  <div class="game-shell"><div class="game-toolbar"><div class="stats"><div class="stat"><span>Rivals left</span><b id="tank-rivals">3</b></div><div class="stat"><span>Your lives</span><b id="tank-lives">2</b></div><div class="stat"><span>KOs</span><b id="tank-kos">0</b></div></div><div class="toolbar-actions"><button class="action-button" id="tank-pause" disabled>Ⅱ Pause</button><button class="action-button primary" id="tank-start">▶ Start</button></div></div>
+    <div class="arcade-wrap"><canvas class="arcade-canvas tank-canvas" id="tank-canvas" width="720" height="560" aria-label="Tank Maze game board"></canvas><p class="game-help" id="tank-message">Drive with ← → ↑ ↓ or WASD · Space to fire · Every wall takes 3 hits</p><div class="tank-mobile-controls" aria-label="Tank controls"><div class="tank-dpad"><button data-tank-dir="up" aria-label="Drive up">↑</button><button data-tank-dir="left" aria-label="Drive left">←</button><button data-tank-dir="down" aria-label="Drive down">↓</button><button data-tank-dir="right" aria-label="Drive right">→</button></div><button id="tank-fire" aria-label="Fire">✦ Fire</button></div></div>
+  </div>
+</section>
+</main>
+</div>
+<script src="/games/js/tank-maze.js"></script>
+</body>
+</html>
