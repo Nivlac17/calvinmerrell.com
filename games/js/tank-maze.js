@@ -59,7 +59,7 @@
     return spawns.map((spawn, i) => ({
       x: spawn.x * TILE, y: spawn.y * TILE, dir: spawn.dir, color: spawn.color,
       player: !!spawn.player, lives: 2, spawn: i, alive: true, fireClock: .5 + i * .3,
-      moveClock: 0, decisionClock: .3 + i * .2, stun: 0,
+      routeTarget: null, stun: 0,
     }));
   }
 
@@ -188,9 +188,13 @@
   }
 
   function cellAt(x, y) { return { x: Math.floor(x / TILE), y: Math.floor(y / TILE) }; }
-  function walkableCell(x, y) { return !!maze[y]?.[x] && maze[y][x].hp === 0; }
+  function walkableCell(x, y, movingTank) {
+    if (!maze[y]?.[x] || maze[y][x].hp !== 0) return false;
+    const centerX = (x + .5) * TILE, centerY = (y + .5) * TILE;
+    return !tanks.some(other => other !== movingTank && other.alive && Math.hypot(other.x - centerX, other.y - centerY) < 28);
+  }
 
-  function nextPathCell(start, goal) {
+  function nextPathCell(start, goal, movingTank) {
     const startKey = `${start.x},${start.y}`;
     const queue = [{ x: start.x, y: start.y }], previous = new Map([[startKey, null]]);
     let found = null;
@@ -199,7 +203,7 @@
       if (cell.x === goal.x && cell.y === goal.y) { found = cell; break; }
       for (const dir of ['up', 'right', 'down', 'left']) {
         const v = vectors[dir], nx = cell.x + v.x, ny = cell.y + v.y, key = `${nx},${ny}`;
-        if (!walkableCell(nx, ny) || previous.has(key)) continue;
+        if (!walkableCell(nx, ny, movingTank) || previous.has(key)) continue;
         previous.set(key, `${cell.x},${cell.y}`); queue.push({ x: nx, y: ny });
       }
     }
@@ -209,19 +213,18 @@
     return key === startKey ? null : key.split(',').map(Number);
   }
 
-  function chooseCpuDirection(tank) {
-    const player = tanks[0];
-    if (!player.alive) return ['up', 'right', 'down', 'left'][Math.floor(Math.random() * 4)];
+  function nextCpuCell(tank, player) {
     const start = cellAt(tank.x, tank.y), target = cellAt(player.x, player.y);
-    const next = nextPathCell(start, target);
-    if (next) {
-      const dx = next[0] - start.x, dy = next[1] - start.y;
-      return dx > 0 ? 'right' : dx < 0 ? 'left' : dy > 0 ? 'down' : 'up';
+    const goals = ['up', 'right', 'down', 'left'].map(dir => {
+      const v = vectors[dir]; return { x: target.x + v.x, y: target.y + v.y };
+    }).filter(cell => walkableCell(cell.x, cell.y, tank));
+    goals.sort((a, b) => (Math.abs(a.x - start.x) + Math.abs(a.y - start.y)) - (Math.abs(b.x - start.x) + Math.abs(b.y - start.y)));
+    for (const goal of goals) {
+      if (goal.x === start.x && goal.y === start.y) return null;
+      const next = nextPathCell(start, goal, tank);
+      if (next) return next;
     }
-    const options = ['up', 'right', 'down', 'left'].filter(dir => {
-      const v = vectors[dir]; return canMove(tank, tank.x + v.x * 16, tank.y + v.y * 16);
-    });
-    return options[Math.floor(Math.random() * options.length)] || tank.dir;
+    return null;
   }
 
   function damageTank(target, owner) {
@@ -244,6 +247,7 @@
       target.x = spawns[target.spawn].x * TILE;
       target.y = spawns[target.spawn].y * TILE;
       target.dir = spawns[target.spawn].dir;
+      target.routeTarget = null;
     }
   }
 
@@ -285,24 +289,40 @@
 
   function updateCpu(tank, dt) {
     if (!tank.alive) return;
-    tank.decisionClock -= dt; tank.moveClock -= dt; tank.fireClock -= dt; tank.stun -= dt;
-    const aim = lineOfSight(tank, tanks[0]);
+    tank.fireClock -= dt; tank.stun -= dt;
+    const player = tanks[0];
+    const aim = player.alive ? lineOfSight(tank, player) : null;
     if (aim) tank.dir = aim;
     if (tank.fireClock <= 0) {
       if (aim) fire(tank);
       tank.fireClock = .85 + Math.random() * .6;
     }
-    if (tank.decisionClock <= 0) {
-      tank.decisionClock = .28 + Math.random() * .22;
-      const target = aim ? tank.dir : chooseCpuDirection(tank);
-      tank.dir = target;
-    }
     if (tank.stun > 0) return;
-    const v = vectors[tank.dir], speed = 88;
-    const nx = tank.x + v.x * speed * dt, ny = tank.y + v.y * speed * dt;
-    if (canMove(tank, nx, ny)) { tank.x = nx; tank.y = ny; }
-    else if (tank.moveClock <= 0) {
-      tank.dir = chooseCpuDirection(tank); tank.moveClock = .25;
+    let destination = tank.routeTarget;
+    if (destination && Math.hypot(destination.x - tank.x, destination.y - tank.y) <= 1.5) {
+      tank.x = destination.x; tank.y = destination.y; tank.routeTarget = null; destination = null;
+    }
+    if (!destination) {
+      const cell = cellAt(tank.x, tank.y);
+      const centerX = (cell.x + .5) * TILE, centerY = (cell.y + .5) * TILE;
+      if (Math.abs(tank.x - centerX) > 1.5) destination = { x: centerX, y: tank.y };
+      else if (Math.abs(tank.y - centerY) > 1.5) destination = { x: tank.x, y: centerY };
+      else {
+        const next = nextCpuCell(tank, player);
+        if (next) destination = { x: (next[0] + .5) * TILE, y: (next[1] + .5) * TILE };
+      }
+      tank.routeTarget = destination;
+    }
+    if (!destination) return;
+    const dx = destination.x - tank.x, dy = destination.y - tank.y;
+    const moveDir = Math.abs(dx) > .5 ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up');
+    if (!aim) tank.dir = moveDir;
+    const v = vectors[moveDir], distance = Math.hypot(dx, dy), step = Math.min(88 * dt, distance);
+    const nx = tank.x + v.x * step, ny = tank.y + v.y * step;
+    if (canMove(tank, nx, ny)) {
+      tank.x = step === distance ? destination.x : nx;
+      tank.y = step === distance ? destination.y : ny;
+      if (step === distance) tank.routeTarget = null;
     }
   }
 
