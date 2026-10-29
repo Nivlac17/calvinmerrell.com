@@ -1,0 +1,17 @@
+{
+  "name": "lines-of-light-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "express": "^4.21.2",
+    "mongodb": "^7.0.0",
+    "uuid": "^11.1.0",
+    "ws": "^8.18.3"
+  }
+}

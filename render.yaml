@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: lines-of-light-api
+    runtime: node
+    plan: free
+    rootDir: vite-calvinmerrell.com/art-api
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_DATABASE
+        value: startup
+      - key: CLIENT_ORIGINS
+        value: https://calvinmerrell.com
+      - key: MONGODB_URI
+        sync: false
