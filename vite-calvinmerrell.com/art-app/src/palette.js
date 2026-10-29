@@ -23,4 +23,6 @@ export const PALETTE = [
   { name: 'Forest', value: '#196b53' },
   { name: 'Charcoal', value: '#39434b' },
   { name: 'Silver', value: '#b7c1c7' },
+  { name: 'Crimson', value: '#c43d54' },
+  { name: 'Periwinkle', value: '#7b8ff0' },
 ];
