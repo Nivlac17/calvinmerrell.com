@@ -25,4 +25,16 @@ export const PALETTE = [
   { name: 'Silver', value: '#b7c1c7' },
   { name: 'Crimson', value: '#c43d54' },
   { name: 'Periwinkle', value: '#7b8ff0' },
+  { name: 'Vermilion', value: '#f15b40' },
+  { name: 'Amber', value: '#ffc247' },
+  { name: 'Chartreuse', value: '#b4d84c' },
+  { name: 'Cyan', value: '#31c8dc' },
+  { name: 'Indigo', value: '#4c53b4' },
+];
+
+// Display order is separate from storage indexes so saved artwork remains compatible.
+export const PALETTE_DISPLAY_ORDER = [
+  2, 23, 25, 15, 7, 26, 17, 0, 18, 27,
+  3, 19, 20, 11, 28, 10, 1, 12, 24, 29,
+  5, 13, 14, 4, 16, 8, 21, 6, 22, 9,
 ];

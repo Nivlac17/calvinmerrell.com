@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useRef, useState } from 'r
 import { HashRouter, Link, Navigate, NavLink, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { apiRequest } from './api.js';
 import { normalizeArtCells, normalizeArtCsv, normalizeArtRecord } from './art-format.js';
-import { PALETTE } from './palette.js';
+import { PALETTE, PALETTE_DISPLAY_ORDER } from './palette.js';
 import {
   CELL_COUNT,
   COLUMN_COUNT,
@@ -412,7 +412,9 @@ function DrawPage() {
         <aside className="tools-panel">
           <div className="tools-heading"><span>Color palette</span><span className="selected-swatch" style={{ backgroundColor: PALETTE[colorIndex].value }} /></div>
           <div className="palette-grid" role="group" aria-label="Choose paint color">
-            {PALETTE.map((color, index) => (
+            {PALETTE_DISPLAY_ORDER.map((index) => {
+              const color = PALETTE[index];
+              return (
               <button
                 className={`palette-color ${index === colorIndex ? 'selected' : ''}`}
                 key={color.value}
@@ -422,7 +424,8 @@ function DrawPage() {
                 aria-pressed={index === colorIndex}
                 title={color.name}
               />
-            ))}
+              );
+            })}
           </div>
           <div className="tool-actions">
             <button className="button primary full" onClick={save}>Save artwork</button>
