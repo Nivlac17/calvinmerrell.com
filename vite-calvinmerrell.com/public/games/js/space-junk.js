@@ -6,6 +6,7 @@
   const scoreEl = document.querySelector('#space-score');
   const bestEl = document.querySelector('#space-best');
   const livesEl = document.querySelector('#space-lives');
+  const gunsEl = document.querySelector('#space-guns');
   const messageEl = document.querySelector('#space-message');
   const startButton = document.querySelector('#space-start');
   const pauseButton = document.querySelector('#space-pause');
@@ -13,6 +14,7 @@
   let best = Number(localStorage.getItem(bestKey) || 0);
   let score = 0;
   let lives = 3;
+  let gunCount = 1;
   let nextExtraShipScore = 5000;
   let ship = { x: W / 2, y: H - 42, w: 38, speed: 330 };
   let debris = [];
@@ -71,7 +73,12 @@
     ctx.fillStyle = '#516e95';
     ctx.beginPath(); ctx.ellipse(0, -5, 3, 5, 0, 0, Math.PI * 2); ctx.fill();
     ctx.fillStyle = '#c7e5ff';
-    roundedRect(-2, -29, 4, 11, 2); ctx.fill();
+    if (gunCount === 1) {
+      roundedRect(-2, -29, 4, 11, 2); ctx.fill();
+    } else {
+      roundedRect(-10, -23, 4, 12, 2); ctx.fill();
+      roundedRect(6, -23, 4, 12, 2); ctx.fill();
+    }
     ctx.restore();
   }
 
@@ -143,7 +150,11 @@
   }
 
   function shoot() {
-    shots.push({ x: ship.x, y: ship.y - 25, speed: 480 });
+    if (gunCount === 1) shots.push({ x: ship.x, y: ship.y - 25, speed: 480 });
+    else {
+      shots.push({ x: ship.x - 8, y: ship.y - 25, speed: 480 });
+      shots.push({ x: ship.x + 8, y: ship.y - 25, speed: 480 });
+    }
   }
 
   function update(dt) {
@@ -175,6 +186,10 @@
         score += item.type === 'saucer' ? 30 : 10;
         scoreEl.textContent = score;
         if (score > best) { best = score; bestEl.textContent = best; localStorage.setItem(bestKey, best); }
+        if (gunCount === 1 && score >= 1000) {
+          gunCount = 2;
+          gunsEl.textContent = gunCount;
+        }
         while (score >= nextExtraShipScore) {
           lives++;
           livesEl.textContent = lives;
@@ -210,10 +225,10 @@
 
   function startGame() {
     if (animationFrame !== null) cancelAnimationFrame(animationFrame);
-    score = 0; lives = 3; nextExtraShipScore = 5000; debris = []; shots = []; particles = []; ship.x = W / 2;
+    score = 0; lives = 3; gunCount = 1; nextExtraShipScore = 5000; debris = []; shots = []; particles = []; ship.x = W / 2;
     spawnClock = .3; fireClock = 0; over = false; paused = false; running = true;
-    scoreEl.textContent = '0'; livesEl.textContent = '3';
-    messageEl.textContent = 'Move with ← → or A / D · Hold Space to fire · Extra ship every 5,000 points';
+    scoreEl.textContent = '0'; livesEl.textContent = '3'; gunsEl.textContent = '1';
+    messageEl.textContent = 'Move with ← → or A / D · Hold Space to fire · Dual guns at 1,000 · Extra ship every 5,000';
     startButton.textContent = '↻ Restart'; pauseButton.disabled = false; pauseButton.textContent = 'Ⅱ Pause';
     lastTime = performance.now(); animationFrame = requestAnimationFrame(loop);
   }
@@ -234,7 +249,7 @@
       pauseButton.textContent = '▶ Resume'; messageEl.textContent = 'Paused — take your time.'; draw();
     } else {
       running = true; paused = false; pauseButton.textContent = 'Ⅱ Pause';
-      messageEl.textContent = 'Move with ← → or A / D · Hold Space to fire · Extra ship every 5,000 points';
+      messageEl.textContent = 'Move with ← → or A / D · Hold Space to fire · Dual guns at 1,000 · Extra ship every 5,000';
       lastTime = performance.now(); animationFrame = requestAnimationFrame(loop);
     }
   }

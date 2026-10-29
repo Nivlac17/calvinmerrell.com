@@ -36,7 +36,7 @@ export const messages = {
     siteDescription: 'Articles and notes on technology, computing, and ideas from Calvin W. Merrell.',
     changeLanguage: 'Change language',
     games: 'Games',
-    personalBlog: 'Personal blog',
+    personalBlog: '“Either write something worth reading or do something worth writing ― Benjamin Franklin',
     heroSubtitle: 'Notes on technology, computing, and ideas.',
     heroImageAlt: 'Sunset over the Vernal landscape',
     fromTheBlog: 'From the blog',
