@@ -56,7 +56,6 @@ export default function App() {
         <div className="art-app">
           <header className="art-header">
             <Link className="art-brand" to="/" aria-label="Lines of Light home">
-              <span className="brand-spark" aria-hidden="true">✳</span>
               <span>Lines of Light<small>ART STUDIO</small></span>
             </Link>
             <nav className="art-nav" aria-label="Art studio navigation">
@@ -142,17 +141,9 @@ function ProfilePage({ profile, onSignIn }) {
   return (
     <main className="welcome-layout">
       <section className="welcome-copy">
-        <p className="eyebrow">A little space to make something</p>
         <h1>Lines of <em>Light.</em></h1>
-        <p className="welcome-lede">A calm, colorful grid for pixel art, quick sketches, and playful ideas.</p>
-        <ul className="feature-list">
-          <li><span>01</span> Paint with a simple palette</li>
-          <li><span>02</span> Save artwork to your account</li>
-          <li><span>03</span> Share a live view and chat</li>
-        </ul>
       </section>
       <section className="profile-card">
-        <div className="card-icon" aria-hidden="true">✦</div>
         {profile ? (
           <>
             <p className="eyebrow">Welcome back</p>
@@ -180,7 +171,6 @@ function ProfilePage({ profile, onSignIn }) {
             </button>
           </>
         )}
-        <p className="local-note">Passwords are securely hashed. Your saved pieces follow your account.</p>
       </section>
     </main>
   );
@@ -244,7 +234,6 @@ function GalleryPage() {
           <h1>Artist’s gallery</h1>
           <p>Browse artwork from the studio or start a new canvas.</p>
         </div>
-        <div className="intro-stamp" aria-hidden="true">✳</div>
       </section>
 
       <form className="new-art-card" onSubmit={createArtwork}>
@@ -292,7 +281,7 @@ function GalleryPage() {
       {galleryError && artworks.length > 0 && <p className="form-error" role="alert">{galleryError}</p>}
       <section className="featured-card">
         <img src={`${BASE_URL}sunset.jpeg`} alt="Warm sunset over a quiet landscape" />
-        <div><p className="eyebrow">A little inspiration</p><h2>Color outside the lines.</h2><p>Small marks can become something wonderful.</p></div>
+        <div><p className="eyebrow">A little inspiration</p><h2>Color outside the lines.</h2></div>
       </section>
     </main>
   );
@@ -595,7 +584,6 @@ function ChatPanel({ roomId }) {
 
 function QuotePage() {
   const [quote, setQuote] = useState({ quote: 'Creativity takes courage.', author: 'Henri Matisse' });
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let active = true;
@@ -604,18 +592,15 @@ function QuotePage() {
       .then((result) => {
         if (active && result?.quote) setQuote({ quote: result.quote, author: result.author || 'Unknown' });
       })
-      .catch(() => {})
-      .finally(() => { if (active) setLoading(false); });
+      .catch(() => {});
     return () => { active = false; };
   }, []);
 
   return (
     <main className="quote-page">
-      <p className="eyebrow">A thought for your next sketch</p>
       <div className="quote-mark" aria-hidden="true">“</div>
       <blockquote>{quote.quote}</blockquote>
       <p className="quote-author">— {quote.author}</p>
-      <p className="quote-status">{loading ? 'Finding a little inspiration…' : 'Take what you need, then make something.'}</p>
     </main>
   );
 }
