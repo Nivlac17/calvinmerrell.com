@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f8f7f2">
+<title>Batty Flight | Little Arcade</title>
+<link rel="stylesheet" href="/games/arcade.css">
+<script src="/games/js/analytics.js"></script>
+<style>
+  .bat-canvas{width:min(100%,720px);background:#171d35}
+  .bat-toolbar{flex-wrap:wrap}
+</style>
+</head>
+<body data-game="batty-flight">
+<div class="shell">
+<aside>
+<a class="brand" href="/games/" aria-label="Little Arcade home"><span class="brand-mark">✳</span><span class="brand-name">little arcade<span>.</span></span></a>
+<p class="eyebrow">Your game room</p>
+<nav class="nav" aria-label="Main navigation"><a href="/games/">← All games</a></nav>
+<div class="aside-bottom"><div class="aside-note"><b>A little play goes a long way.</b>Pick a game, take a breath, and enjoy a tiny break.</div><div class="aside-foot">MADE FOR YOUR MINI BREAKS · 2026</div></div>
+</aside>
+<main>
+<div class="topbar"><div class="crumb"><a href="/games/">ARCADE</a> &nbsp;/&nbsp; <b>Batty Flight</b></div><div class="top-actions"><div class="pill"><i class="dot"></i>Game ready</div><div class="avatar" aria-hidden="true">☀️</div></div></div>
+<section class="view active" id="view-batty-flight">
+  <div class="game-heading"><div><h1>Batty Flight</h1><p>Flutter past spiderwebs and scoop up fireflies on your moonlit cave flight.</p></div><a class="back-button" href="/games/">← All games</a></div>
+  <div class="game-shell"><div class="game-toolbar bat-toolbar"><div class="stats"><div class="stat"><span>Score</span><b id="bat-score">0</b></div><div class="stat"><span>Best</span><b id="bat-best">0</b></div><div class="stat"><span>Fireflies</span><b id="bat-fireflies">0</b></div></div><div class="toolbar-actions"><button class="action-button" id="bat-pause" disabled>Ⅱ Pause</button><button class="action-button primary" id="bat-start">▶ Start</button></div></div>
+    <div class="arcade-wrap"><canvas class="arcade-canvas bat-canvas" id="bat-canvas" width="720" height="480" tabindex="0" aria-label="Batty Flight. Tap or press Space to flap, avoid spiderwebs, and collect fireflies."></canvas><p class="game-help" id="bat-message">Tap, click, or press Space to flap · Avoid the webs · Collect fireflies</p></div>
+  </div>
+</section>
+</main>
+</div>
+<script src="/games/js/batty-flight.js"></script>
+</body>
+</html>
