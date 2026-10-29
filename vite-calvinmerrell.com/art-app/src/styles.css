@@ -97,7 +97,8 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .title-input { display: block; max-width: 530px; padding: 3px 0; border: 0; border-radius: 0; border-bottom: 1px solid #c6e58b75; background: transparent; color: #f2f2e7; font: 700 clamp(28px, 4vw, 39px)/1.2 'Space Grotesk', sans-serif; letter-spacing: -1.2px; }
 .title-input:focus { outline: none; border-bottom-color: #c6e58b; }
 .studio-layout { display: grid; grid-template-columns: 178px minmax(0, 1fr) 270px; align-items: start; gap: 15px; }
-.tools-panel, .canvas-panel, .chat-panel { border: 1px solid #dce9dc22; border-radius: 16px; background: #17353c; }
+.tools-panel, .canvas-panel { border: 1px solid #dce9dc22; border-radius: 16px; background: #17353c; }
+.chat-panel { min-height: 385px; display: flex; flex-direction: column; overflow: hidden; border: 1px solid #dce9dc22; border-radius: 16px; background: #17353c; }
 .tools-panel { padding: 16px; }
 .tools-heading { display: flex; justify-content: space-between; align-items: center; margin: 0 0 14px; color: #e9f0e6; font: 600 12px 'Space Grotesk', sans-serif; }
 .selected-swatch { width: 22px; height: 22px; border: 2px solid #ffffffaa; border-radius: 7px; }
@@ -114,7 +115,6 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .pixel-cell { min-width: 0; min-height: 0; cursor: crosshair; }
 .canvas-caption { margin: 10px 2px 0; color: #9bb2aa; font: 9px 'DM Mono', monospace; text-align: right; letter-spacing: .3px; }
 .canvas-caption span { padding: 0 5px; color: #f0a775; }
-.chat-panel { min-height: 385px; display: flex; flex-direction: column; overflow: hidden; }
 .chat-heading { display: flex; justify-content: space-between; align-items: center; padding: 15px 15px 12px; border-bottom: 1px solid #dce9dc20; }
 .chat-heading .eyebrow { margin-bottom: 4px; font-size: 8px; }
 .chat-heading h2 { margin: 0; color: #e9f0e6; font: 600 14px 'Space Grotesk', sans-serif; }

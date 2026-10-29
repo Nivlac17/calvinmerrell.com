@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { HashRouter, Link, Navigate, NavLink, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import { apiRequest } from './api.js';
+import { normalizeArtCells, normalizeArtCsv, normalizeArtRecord } from './art-format.js';
 import {
   CELL_COUNT,
   COLUMN_COUNT,
@@ -176,7 +177,7 @@ function GalleryPage() {
 
   useEffect(() => {
     apiRequest('/portfolio/all')
-      .then(setArtworks)
+      .then((records) => setArtworks(Array.isArray(records) ? records.map(normalizeArtRecord).filter((art) => art?.id) : []))
       .catch((error) => setGalleryError(error.message))
       .finally(() => setLoading(false));
   }, []);
@@ -195,7 +196,7 @@ function GalleryPage() {
       id: createId(),
       userName: profile,
       title: `Copy of ${art.title}`,
-      artCsv: art.artCsv,
+      artCsv: normalizeArtCsv(art.artCsv),
     };
     saveDraft(copy);
     navigate(`/draw/${copy.id}`);
@@ -222,7 +223,7 @@ function GalleryPage() {
         <div>
           <p className="eyebrow">Your sketchbook</p>
           <h1>Artist’s gallery</h1>
-          <p>Browse pieces saved in this browser or start a new canvas.</p>
+          <p>Browse artwork from the studio or start a new canvas.</p>
         </div>
         <div className="intro-stamp" aria-hidden="true">✳</div>
       </section>
@@ -244,14 +245,14 @@ function GalleryPage() {
       ) : (
         Object.entries(groups).map(([artist, pieces]) => (
           <section className="gallery-section" key={artist}>
-            <div className="gallery-heading"><h2>{artist === profile ? 'Your artwork' : `${artist}’s artwork`}</h2><span>{pieces.length} {pieces.length === 1 ? 'piece' : 'pieces'}</span></div>
+            <div className="gallery-heading"><h2>{artist === profile ? 'Your artwork' : `${artistLabel(artist)}’s artwork`}</h2><span>{pieces.length} {pieces.length === 1 ? 'piece' : 'pieces'}</span></div>
             <div className="artwork-grid">
               {pieces.map((art) => (
                 <article className="artwork-card" key={art.id}>
                   <ArtThumbnail artCsv={art.artCsv} title={art.title} />
                   <div className="artwork-card-body">
                     <h3>{art.title}</h3>
-                    <p>{art.userName === profile ? 'Saved by you' : `By ${art.userName}`}</p>
+                    <p>{art.userName === profile ? 'Saved by you' : `By ${artistLabel(art.userName)}`}</p>
                     <div className="card-actions">
                       <button className="button subtle" onClick={() => navigate(`/watch/${art.id}`)}>View piece</button>
                       {art.userName === profile ? (
@@ -286,9 +287,9 @@ function ArtThumbnail({ artCsv, title }) {
     canvas.width = COLUMN_COUNT;
     canvas.height = ROW_COUNT;
     const context = canvas.getContext('2d');
-    const values = artCsv?.split(',') || [];
+    const values = normalizeArtCells(artCsv);
     values.forEach((value, index) => {
-      const color = PALETTE[Number(value)]?.value || 'whitesmoke';
+      const color = PALETTE[value]?.value || 'whitesmoke';
       context.fillStyle = color;
       context.fillRect(index % COLUMN_COUNT, Math.floor(index / COLUMN_COUNT), 1, 1);
     });
@@ -317,8 +318,10 @@ function DrawPage() {
   useEffect(() => {
     if (!/^[0-9a-f]{24}$/i.test(artId)) return;
     let active = true;
-    apiRequest(`/portfolio/${artId}`).then((saved) => {
+    apiRequest(`/portfolio/${artId}`).then((result) => {
       if (!active) return;
+      const saved = normalizeArtRecord(result);
+      if (!saved) return;
       setTitle(saved.title);
       cellsRef.current = parseCsv(saved.artCsv);
       setCells(cellsRef.current);
@@ -470,7 +473,13 @@ function WatchPage() {
 
   useEffect(() => {
     let active = true;
-    apiRequest(`/portfolio/${artId}`).then((saved) => { if (active) { setArt(saved); setCells(parseCsv(saved.artCsv)); } })
+    apiRequest(`/portfolio/${artId}`).then((result) => {
+      if (!active) return;
+      const saved = normalizeArtRecord(result);
+      if (!saved) { setLoadError(true); return; }
+      setArt(saved);
+      setCells(parseCsv(saved.artCsv));
+    })
       .catch(() => { if (active) setLoadError(true); });
     const unsubscribe = subscribeToRoom(artId, (event) => {
       if (event.type === 'clear') {
@@ -597,7 +606,11 @@ function NotFound() {
 }
 
 function parseCsv(csv) {
-  const values = typeof csv === 'string' ? csv.split(',').slice(0, CELL_COUNT).map((value) => Number(value)) : [];
-  while (values.length < CELL_COUNT) values.push(9);
-  return values.map((value) => Number.isInteger(value) && value >= 0 && value < PALETTE.length ? value : 9);
+  return normalizeArtCells(csv);
+}
+
+function artistLabel(userName) {
+  if (typeof userName !== 'string' || !userName) return 'Guest artist';
+  const name = userName.split('@')[0] || 'Guest artist';
+  return name.charAt(0).toUpperCase() + name.slice(1);
 }
