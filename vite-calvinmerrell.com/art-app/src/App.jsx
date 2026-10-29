@@ -1,20 +1,15 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { HashRouter, Link, Navigate, NavLink, Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import { apiRequest } from './api.js';
 import {
   CELL_COUNT,
   COLUMN_COUNT,
   EMPTY_CSV,
-  PROFILE_KEY,
   ROW_COUNT,
   createId,
-  deleteArtwork,
   publishRoomEvent,
   readArt,
-  readLibrary,
-  readRoomMessages,
-  saveArtwork,
   saveDraft,
-  saveRoomMessage,
   subscribeToRoom,
 } from './store.js';
 
@@ -38,16 +33,18 @@ function useProfile() {
 }
 
 export default function App() {
-  const [profile, setProfile] = useState(() => localStorage.getItem(PROFILE_KEY) || '');
+  const [profile, setProfile] = useState('');
+  const [authLoading, setAuthLoading] = useState(true);
 
-  function signIn(name) {
-    const cleanName = name.trim().slice(0, 32);
-    localStorage.setItem(PROFILE_KEY, cleanName);
-    setProfile(cleanName);
-  }
+  useEffect(() => {
+    apiRequest('/auth/me')
+      .then((user) => setProfile(user.email))
+      .catch(() => setProfile(''))
+      .finally(() => setAuthLoading(false));
+  }, []);
 
-  function signOut() {
-    localStorage.removeItem(PROFILE_KEY);
+  async function signOut() {
+    try { await apiRequest('/auth/logout', { method: 'DELETE' }); } catch { /* Clear the local view even if the API is offline. */ }
     setProfile('');
   }
 
@@ -61,17 +58,19 @@ export default function App() {
               <span>Lines of Light<small>ART STUDIO</small></span>
             </Link>
             <nav className="art-nav" aria-label="Art studio navigation">
-              {profile && <NavLink to="/navigation">Gallery</NavLink>}
+              <NavLink to="/">Login</NavLink>
+              {profile && <NavLink to="/navigation">Artist’s Page</NavLink>}
+              {profile && <NavLink to="/draw/new">Draw</NavLink>}
               <NavLink to="/quote">Quote</NavLink>
               {profile && <button className="nav-signout" onClick={signOut}>Sign out</button>}
             </nav>
           </header>
 
           <Routes>
-            <Route path="/" element={<ProfilePage profile={profile} onSignIn={signIn} />} />
-            <Route path="/navigation" element={<RequireProfile profile={profile}><GalleryPage /></RequireProfile>} />
-            <Route path="/draw/:artId" element={<RequireProfile profile={profile}><DrawPage /></RequireProfile>} />
-            <Route path="/watch/:artId" element={<RequireProfile profile={profile}><WatchPage /></RequireProfile>} />
+            <Route path="/" element={<ProfilePage profile={profile} onSignIn={setProfile} />} />
+            <Route path="/navigation" element={<RequireProfile loading={authLoading} profile={profile}><GalleryPage /></RequireProfile>} />
+            <Route path="/draw/:artId" element={<RequireProfile loading={authLoading} profile={profile}><DrawPage /></RequireProfile>} />
+            <Route path="/watch/:artId" element={<RequireProfile loading={authLoading} profile={profile}><WatchPage /></RequireProfile>} />
             <Route path="/quote" element={<QuotePage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
@@ -87,19 +86,37 @@ export default function App() {
   );
 }
 
-function RequireProfile({ profile, children }) {
+function RequireProfile({ loading, profile, children }) {
+  if (loading) return <main className="page-wrap"><p className="eyebrow">Checking your account…</p></main>;
   return profile ? children : <Navigate to="/" replace />;
 }
 
 function ProfilePage({ profile, onSignIn }) {
-  const [artistName, setArtistName] = useState(profile);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [mode, setMode] = useState('login');
+  const [error, setError] = useState('');
+  const [busy, setBusy] = useState(false);
   const navigate = useNavigate();
 
-  function submit(event) {
+  async function submit(event) {
     event.preventDefault();
-    if (!artistName.trim()) return;
-    onSignIn(artistName);
-    navigate('/navigation');
+    setBusy(true);
+    setError('');
+    try {
+      const user = await apiRequest(`/auth/${mode === 'create' ? 'create' : 'login'}`, {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+      });
+      onSignIn(user.email);
+      navigate('/navigation');
+    } catch (requestError) {
+      setError(requestError.message === 'Failed to fetch'
+        ? 'Could not reach the Lines of Light service. Please try again shortly.'
+        : requestError.message);
+    } finally {
+      setBusy(false);
+    }
   }
 
   return (
@@ -110,8 +127,8 @@ function ProfilePage({ profile, onSignIn }) {
         <p className="welcome-lede">A calm, colorful grid for pixel art, quick sketches, and playful ideas.</p>
         <ul className="feature-list">
           <li><span>01</span> Paint with a simple palette</li>
-          <li><span>02</span> Save a gallery in this browser</li>
-          <li><span>03</span> Open a live view in another tab</li>
+          <li><span>02</span> Save artwork to your account</li>
+          <li><span>03</span> Share a live view and chat</li>
         </ul>
       </section>
       <section className="profile-card">
@@ -120,29 +137,30 @@ function ProfilePage({ profile, onSignIn }) {
           <>
             <p className="eyebrow">Welcome back</p>
             <h2>{profile}</h2>
-            <p>Your profile and artwork are saved in this browser.</p>
+            <p>Your account and gallery are stored online.</p>
             <button className="button primary full" onClick={() => navigate('/navigation')}>Open my studio</button>
           </>
         ) : (
           <>
-            <p className="eyebrow">Start creating</p>
-            <h2>What should we call you?</h2>
-            <p>Choose an artist name to keep your work together.</p>
+            <p className="eyebrow">{mode === 'create' ? 'New artist account' : 'Welcome back'}</p>
+            <h2>{mode === 'create' ? 'Create your account' : 'Sign in to your studio'}</h2>
+            <p>Use your account to save and share your artwork.</p>
             <form onSubmit={submit}>
-              <label htmlFor="artist-name">Artist name</label>
-              <input
-                id="artist-name"
-                autoComplete="nickname"
-                maxLength={32}
-                placeholder="e.g. Sky Painter"
-                value={artistName}
-                onChange={(event) => setArtistName(event.target.value)}
-              />
-              <button className="button primary full" type="submit" disabled={!artistName.trim()}>Enter the studio <span aria-hidden="true">↗</span></button>
+              <label htmlFor="artist-email">Email</label>
+              <input id="artist-email" type="email" autoComplete="email" maxLength={254} required placeholder="you@example.com" value={email} onChange={(event) => setEmail(event.target.value)} />
+              <label htmlFor="artist-password">Password</label>
+              <input id="artist-password" type="password" autoComplete={mode === 'create' ? 'new-password' : 'current-password'} minLength={mode === 'create' ? 8 : 1} maxLength={128} required placeholder={mode === 'create' ? 'At least 8 characters' : 'Password'} value={password} onChange={(event) => setPassword(event.target.value)} />
+              {error && <p className="form-error" role="alert">{error}</p>}
+              <button className="button primary full" type="submit" disabled={busy || !email.trim() || !password || (mode === 'create' && password.length < 8)}>
+                {busy ? 'Connecting…' : mode === 'create' ? 'Create account' : 'Sign in'} <span aria-hidden="true">↗</span>
+              </button>
             </form>
+            <button className="text-button auth-mode-toggle" onClick={() => { setMode(mode === 'create' ? 'login' : 'create'); setError(''); }}>
+              {mode === 'create' ? 'Already have an account? Sign in' : 'New here? Create an account'}
+            </button>
           </>
         )}
-        <p className="local-note">No password or server account. Your profile and saved pieces stay in this browser.</p>
+        <p className="local-note">Passwords are securely hashed. Your saved pieces follow your account.</p>
       </section>
     </main>
   );
@@ -151,17 +169,16 @@ function ProfilePage({ profile, onSignIn }) {
 function GalleryPage() {
   const profile = useProfile();
   const navigate = useNavigate();
-  const [artworks, setArtworks] = useState(readLibrary);
+  const [artworks, setArtworks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [galleryError, setGalleryError] = useState('');
   const [title, setTitle] = useState('');
 
   useEffect(() => {
-    const refresh = () => setArtworks(readLibrary());
-    window.addEventListener('lines-of-light:library-change', refresh);
-    window.addEventListener('storage', refresh);
-    return () => {
-      window.removeEventListener('lines-of-light:library-change', refresh);
-      window.removeEventListener('storage', refresh);
-    };
+    apiRequest('/portfolio/all')
+      .then(setArtworks)
+      .catch((error) => setGalleryError(error.message))
+      .finally(() => setLoading(false));
   }, []);
 
   function createArtwork(event) {
@@ -182,6 +199,15 @@ function GalleryPage() {
     };
     saveDraft(copy);
     navigate(`/draw/${copy.id}`);
+  }
+
+  async function removeArtwork(art) {
+    try {
+      await apiRequest(`/portfolio/${art.id}`, { method: 'DELETE' });
+      setArtworks((previous) => previous.filter((item) => item.id !== art.id));
+    } catch (error) {
+      setGalleryError(error.message);
+    }
   }
 
   const groups = artworks.reduce((result, art) => {
@@ -210,10 +236,10 @@ function GalleryPage() {
       </form>
 
       {artworks.length === 0 ? (
-        <section className="empty-gallery">
+        loading ? <section className="empty-gallery"><h2>Loading your gallery…</h2></section> : galleryError ? <section className="empty-gallery"><h2>Could not load the gallery</h2><p>{galleryError}</p></section> : <section className="empty-gallery">
           <div aria-hidden="true">▦</div>
           <h2>Your gallery is waiting</h2>
-          <p>Create your first piece above. It will be saved on this device.</p>
+          <p>Create your first piece above. It will be saved to your account.</p>
         </section>
       ) : (
         Object.entries(groups).map(([artist, pieces]) => (
@@ -233,7 +259,7 @@ function GalleryPage() {
                       ) : (
                         <button className="button subtle" onClick={() => copyArtwork(art)}>Make a copy</button>
                       )}
-                      {art.userName === profile && <button className="icon-button" onClick={() => { deleteArtwork(art.id); setArtworks(readLibrary()); }} aria-label={`Delete ${art.title}`}>×</button>}
+                      {art.userName === profile && <button className="icon-button" onClick={() => removeArtwork(art)} aria-label={`Delete ${art.title}`}>×</button>}
                     </div>
                   </div>
                 </article>
@@ -243,6 +269,7 @@ function GalleryPage() {
         ))
       )}
 
+      {galleryError && artworks.length > 0 && <p className="form-error" role="alert">{galleryError}</p>}
       <section className="featured-card">
         <img src={`${BASE_URL}sunset.jpeg`} alt="Warm sunset over a quiet landscape" />
         <div><p className="eyebrow">A little inspiration</p><h2>Color outside the lines.</h2><p>Small marks can become something wonderful.</p></div>
@@ -287,6 +314,30 @@ function DrawPage() {
     saveDraft(draft);
   }, [artId, cells, profile, title]);
 
+  useEffect(() => {
+    if (!/^[0-9a-f]{24}$/i.test(artId)) return;
+    let active = true;
+    apiRequest(`/portfolio/${artId}`).then((saved) => {
+      if (!active) return;
+      setTitle(saved.title);
+      cellsRef.current = parseCsv(saved.artCsv);
+      setCells(cellsRef.current);
+    }).catch(() => {});
+    return () => { active = false; };
+  }, [artId]);
+
+  useEffect(() => subscribeToRoom(artId, (event) => {
+    if (event.type === 'clear') setCells(Array(CELL_COUNT).fill(9));
+    if (event.type === 'pixel') {
+      setCells((previous) => {
+        if (event.index < 0 || event.index >= CELL_COUNT) return previous;
+        const next = previous.slice();
+        next[event.index] = event.colorIndex;
+        return next;
+      });
+    }
+  }), [artId]);
+
   function paint(index) {
     if (index < 0 || index >= CELL_COUNT || cellsRef.current[index] === colorIndex) return;
     const next = cellsRef.current.slice();
@@ -323,14 +374,26 @@ function DrawPage() {
     publishRoomEvent({ type: 'clear', roomId: artId });
   }
 
-  function save() {
-    const saved = saveArtwork({ id: artId, userName: profile, title, artCsv: cells.join(',') });
-    setNotice(saved ? 'Saved to your gallery on this browser.' : 'Could not save in this browser. Check available storage.');
+  async function save() {
+    setNotice('Saving to your account…');
+    try {
+      const saved = await apiRequest('/portfolio', {
+        method: 'POST',
+        body: JSON.stringify({ id: artId, title, artCsv: cells.join(',') }),
+      });
+      saveDraft(saved);
+      setNotice('Saved to your account.');
+      if (saved.id !== artId) navigate(`/draw/${saved.id}`, { replace: true });
+    } catch (error) {
+      setNotice(`Could not save: ${error.message}`);
+    }
   }
 
   function openLiveView() {
     window.open(`${BASE_URL}#/watch/${artId}`, '_blank', 'noopener,noreferrer');
   }
+
+  const savedToAccount = /^[0-9a-f]{24}$/i.test(artId);
 
   return (
     <main className="page-wrap draw-page">
@@ -362,11 +425,11 @@ function DrawPage() {
           </div>
           <div className="tool-actions">
             <button className="button primary full" onClick={save}>Save artwork</button>
-            <button className="button subtle full" onClick={openLiveView}>Open live view ↗</button>
+            <button className="button subtle full" onClick={openLiveView} disabled={!savedToAccount}>Open live view ↗</button>
             <button className="button text-button full" onClick={clearCanvas}>Clear canvas</button>
           </div>
           {notice && <p className="save-notice" role="status">{notice}</p>}
-          <p className="local-note">A live view can follow this canvas in another tab in the same browser.</p>
+          <p className="local-note">Save this piece to your account before opening a live view or chat room.</p>
         </aside>
 
         <section className="canvas-panel" aria-label="Drawing canvas">
@@ -401,31 +464,38 @@ function DrawPage() {
 
 function WatchPage() {
   const { artId } = useParams();
-  const profile = useProfile();
-  const [art] = useState(() => readArt(artId));
-  const [cells, setCells] = useState(() => parseCsv(art?.artCsv));
+  const [art, setArt] = useState(null);
+  const [cells, setCells] = useState(() => Array(CELL_COUNT).fill(9));
+  const [loadError, setLoadError] = useState(false);
 
-  useEffect(() => subscribeToRoom((event) => {
-    if (event?.roomId !== artId) return;
-    if (event.type === 'clear') {
-      setCells(Array(CELL_COUNT).fill(9));
-    } else if (event.type === 'pixel') {
-      setCells((previous) => {
-        const next = previous.slice();
-        next[event.index] = event.colorIndex;
-        return next;
-      });
-    }
-  }), [artId]);
+  useEffect(() => {
+    let active = true;
+    apiRequest(`/portfolio/${artId}`).then((saved) => { if (active) { setArt(saved); setCells(parseCsv(saved.artCsv)); } })
+      .catch(() => { if (active) setLoadError(true); });
+    const unsubscribe = subscribeToRoom(artId, (event) => {
+      if (event.type === 'clear') {
+        setCells(Array(CELL_COUNT).fill(9));
+      } else if (event.type === 'pixel') {
+        setCells((previous) => {
+          const next = previous.slice();
+          next[event.index] = event.colorIndex;
+          return next;
+        });
+      }
+    });
+    return () => { active = false; unsubscribe(); };
+  }, [artId]);
 
-  if (!art) {
-    return <main className="page-wrap"><section className="empty-gallery"><h1>Artwork not found</h1><p>Saved pieces live in the browser where they were created.</p><Link className="button primary" to="/navigation">Return to gallery</Link></section></main>;
+  if (loadError) {
+    return <main className="page-wrap"><section className="empty-gallery"><h1>Artwork not found</h1><p>This artwork may have been removed or is temporarily unavailable.</p><Link className="button primary" to="/navigation">Return to gallery</Link></section></main>;
   }
+
+  if (!art) return <main className="page-wrap"><p className="eyebrow">Loading artwork…</p></main>;
 
   return (
     <main className="page-wrap draw-page">
       <section className="page-intro draw-intro">
-        <div><p className="eyebrow">Live art view</p><h1>{art.title}</h1><p>By {art.userName} <span className="live-indicator"><i /> Same-browser updates</span></p></div>
+        <div><p className="eyebrow">Live art view</p><h1>{art.title}</h1><p>By {art.userName} <span className="live-indicator"><i /> Live updates</span></p></div>
         <Link className="button subtle" to="/navigation">← Gallery</Link>
       </section>
       <div className="studio-layout viewer-layout">
@@ -442,38 +512,45 @@ function WatchPage() {
 }
 
 function ChatPanel({ roomId }) {
-  const profile = useProfile();
-  const [messages, setMessages] = useState(() => readRoomMessages(roomId));
+  const [messages, setMessages] = useState([]);
   const [text, setText] = useState('');
   const chatRef = useRef(null);
+  const savedToAccount = /^[0-9a-f]{24}$/i.test(roomId);
 
   useEffect(() => {
-    setMessages(readRoomMessages(roomId));
-    return subscribeToRoom((event) => {
+    setMessages([]);
+    if (!savedToAccount) return undefined;
+    apiRequest(`/chat/${roomId}`).then(setMessages).catch(() => {});
+    return subscribeToRoom(roomId, (event) => {
       if (event?.type !== 'chat' || event.roomId !== roomId) return;
       setMessages((previous) => previous.some((message) => message.id === event.message.id)
         ? previous
         : [...previous, event.message].slice(-100));
     });
-  }, [roomId]);
+  }, [roomId, savedToAccount]);
 
   useEffect(() => {
     if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight;
   }, [messages]);
 
-  function send(event) {
+  async function send(event) {
     event.preventDefault();
-    if (!text.trim()) return;
-    const message = { id: createId(), name: profile, message: text.trim().slice(0, 500), sentAt: new Date().toISOString() };
-    setMessages(saveRoomMessage(roomId, message));
+    if (!text.trim() || !savedToAccount) return;
+    const content = text.trim().slice(0, 500);
     setText('');
+    try {
+      const message = await apiRequest(`/chat/${roomId}`, { method: 'POST', body: JSON.stringify({ message: content }) });
+      setMessages((previous) => previous.some((item) => item.id === message.id) ? previous : [...previous, message].slice(-100));
+    } catch {
+      setText(content);
+    }
   }
 
   return (
     <aside className="chat-panel">
       <div className="chat-heading"><div><p className="eyebrow">Studio chat</p><h2>Notes & ideas</h2></div><span aria-hidden="true">✎</span></div>
       <div className="chat-messages" ref={chatRef} aria-live="polite">
-        {messages.length === 0 ? <p className="chat-empty">Leave a note for this piece. Messages are shared with other tabs in this browser.</p> : messages.map((message) => (
+        {messages.length === 0 ? <p className="chat-empty">{savedToAccount ? 'Leave a note for this piece. Other signed-in visitors can join the conversation.' : 'Save your artwork to open its chat room.'}</p> : messages.map((message) => (
           <article className="chat-message" key={message.id}>
             <strong>{message.name}</strong><p>{message.message}</p>
           </article>
@@ -482,7 +559,7 @@ function ChatPanel({ roomId }) {
       <form className="chat-form" onSubmit={send}>
         <label className="sr-only" htmlFor={`chat-${roomId}`}>Write a note</label>
         <input id={`chat-${roomId}`} maxLength={500} placeholder="Write a note…" value={text} onChange={(event) => setText(event.target.value)} />
-        <button className="button primary" type="submit" disabled={!text.trim()} aria-label="Send note">Send</button>
+        <button className="button primary" type="submit" disabled={!text.trim() || !savedToAccount} aria-label="Send note">Send</button>
       </form>
     </aside>
   );

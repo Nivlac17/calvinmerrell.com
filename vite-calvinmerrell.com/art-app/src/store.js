@@ -1,18 +1,34 @@
-export const PROFILE_KEY = 'linesOfLight.profile.v1';
-const LIBRARY_KEY = 'linesOfLight.library.v1';
+import { websocketUrl } from './api.js';
+
 const DRAFT_PREFIX = 'linesOfLight.draft.';
-const CHAT_PREFIX = 'linesOfLight.chat.';
-const ROOM_CHANNEL = 'linesOfLight.rooms.v1';
 export const COLUMN_COUNT = 80;
 export const ROW_COUNT = 57;
 export const CELL_COUNT = COLUMN_COUNT * ROW_COUNT;
 export const EMPTY_CSV = Array(CELL_COUNT).fill('9').join(',');
 
-let roomChannel;
-try {
-  roomChannel = typeof BroadcastChannel === 'undefined' ? null : new BroadcastChannel(ROOM_CHANNEL);
-} catch {
-  roomChannel = null;
+let socket;
+let reconnectTimer;
+const roomSubscribers = new Map();
+const pendingEvents = [];
+
+function connectSocket() {
+  if (typeof WebSocket === 'undefined') return;
+  if (socket && [WebSocket.CONNECTING, WebSocket.OPEN].includes(socket.readyState)) return;
+  socket = new WebSocket(websocketUrl());
+  socket.addEventListener('open', () => {
+    roomSubscribers.forEach((_handlers, roomId) => socket.send(JSON.stringify({ type: 'join', roomId })));
+    while (pendingEvents.length) socket.send(JSON.stringify(pendingEvents.shift()));
+  });
+  socket.addEventListener('message', (event) => {
+    try {
+      const message = JSON.parse(event.data);
+      roomSubscribers.get(message.roomId)?.forEach((handler) => handler(message));
+    } catch { /* Ignore malformed server messages. */ }
+  });
+  socket.addEventListener('close', () => {
+    clearTimeout(reconnectTimer);
+    if (roomSubscribers.size) reconnectTimer = setTimeout(connectSocket, 2000);
+  });
 }
 
 function readJson(key, fallback) {
@@ -24,24 +40,13 @@ function readJson(key, fallback) {
   }
 }
 
-function announceLibraryChange() {
-  window.dispatchEvent(new CustomEvent('lines-of-light:library-change'));
-}
-
 export function createId() {
   return globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-}
-
-export function readLibrary() {
-  const library = readJson(LIBRARY_KEY, []);
-  return Array.isArray(library) ? library : [];
 }
 
 export function readArt(id) {
   const draft = readJson(`${DRAFT_PREFIX}${id}`, null);
   if (draft) return draft;
-  const saved = readLibrary().find((art) => art.id === id);
-  if (saved) return saved;
   return null;
 }
 
@@ -53,51 +58,23 @@ export function saveDraft(art) {
   }
 }
 
-export function saveArtwork(art) {
-  const saved = {
-    ...art,
-    title: art.title.trim() || 'Untitled art',
-    updated: new Date().toISOString(),
+export function subscribeToRoom(roomId, handler) {
+  const handlers = roomSubscribers.get(roomId) || new Set();
+  handlers.add(handler);
+  roomSubscribers.set(roomId, handlers);
+  connectSocket();
+  if (socket?.readyState === WebSocket.OPEN) socket.send(JSON.stringify({ type: 'join', roomId }));
+  return () => {
+    handlers.delete(handler);
+    if (handlers.size === 0) roomSubscribers.delete(roomId);
+    if (roomSubscribers.size === 0) {
+      clearTimeout(reconnectTimer);
+      socket?.close();
+    }
   };
-  const library = readLibrary().filter((item) => item.id !== saved.id);
-  library.unshift(saved);
-  try {
-    localStorage.setItem(LIBRARY_KEY, JSON.stringify(library));
-    saveDraft(saved);
-    announceLibraryChange();
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-export function deleteArtwork(id) {
-  const library = readLibrary().filter((art) => art.id !== id);
-  localStorage.setItem(LIBRARY_KEY, JSON.stringify(library));
-  localStorage.removeItem(`${DRAFT_PREFIX}${id}`);
-  announceLibraryChange();
-}
-
-export function readRoomMessages(roomId) {
-  const messages = readJson(`${CHAT_PREFIX}${roomId}`, []);
-  return Array.isArray(messages) ? messages : [];
-}
-
-export function subscribeToRoom(handler) {
-  if (!roomChannel) return () => {};
-  const listener = (event) => handler(event.data);
-  roomChannel.addEventListener('message', listener);
-  return () => roomChannel.removeEventListener('message', listener);
 }
 
 export function publishRoomEvent(event) {
-  roomChannel?.postMessage(event);
-}
-
-export function saveRoomMessage(roomId, message) {
-  const messages = readRoomMessages(roomId);
-  const next = [...messages, message].slice(-100);
-  localStorage.setItem(`${CHAT_PREFIX}${roomId}`, JSON.stringify(next));
-  publishRoomEvent({ type: 'chat', roomId, message });
-  return next;
+  if (socket?.readyState === WebSocket.OPEN) socket.send(JSON.stringify(event));
+  else pendingEvents.push(event);
 }
