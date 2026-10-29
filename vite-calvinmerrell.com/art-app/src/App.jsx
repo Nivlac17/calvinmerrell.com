@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
-import { HashRouter, Link, Navigate, NavLink, Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import { HashRouter, Link, Navigate, NavLink, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { apiRequest } from './api.js';
 import { normalizeArtCells, normalizeArtCsv, normalizeArtRecord } from './art-format.js';
 import {
@@ -52,6 +52,7 @@ export default function App() {
   return (
     <PROFILE_CONTEXT.Provider value={profile}>
       <HashRouter>
+        <AnalyticsTracker />
         <div className="art-app">
           <header className="art-header">
             <Link className="art-brand" to="/" aria-label="Lines of Light home">
@@ -85,6 +86,24 @@ export default function App() {
       </HashRouter>
     </PROFILE_CONTEXT.Provider>
   );
+}
+
+function AnalyticsTracker() {
+  const location = useLocation();
+  const lastPage = useRef('');
+
+  useEffect(() => {
+    const pagePath = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+    if (!window.gtag || pagePath === lastPage.current) return;
+    lastPage.current = pagePath;
+    window.gtag('event', 'page_view', {
+      page_path: pagePath,
+      page_location: window.location.href,
+      page_title: document.title,
+    });
+  }, [location.pathname, location.search, location.hash]);
+
+  return null;
 }
 
 function RequireProfile({ loading, profile, children }) {
