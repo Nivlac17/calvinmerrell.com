@@ -1,12 +1,15 @@
+import { PALETTE } from './palette.js';
+
 const COLUMN_COUNT = 80;
 const ROW_COUNT = 57;
 const CELL_COUNT = COLUMN_COUNT * ROW_COUNT;
 const PAPER_INDEX = 9;
 
-const LEGACY_COLORS = [
-  'yellow', 'blue', 'red', 'green', 'pink', 'purple', 'grey', 'orange', 'black', 'whitesmoke',
-];
-const COLOR_INDEX = new Map(LEGACY_COLORS.map((color, index) => [color, index]));
+const COLOR_INDEX = new Map();
+PALETTE.forEach((color, index) => {
+  COLOR_INDEX.set(color.value.toLowerCase(), index);
+  COLOR_INDEX.set(color.name.toLowerCase(), index);
+});
 COLOR_INDEX.set('gray', 6);
 
 function pixelValues(source) {
@@ -31,14 +34,14 @@ function pixelValues(source) {
 }
 
 function paletteIndex(value) {
-  if (typeof value === 'number' && Number.isInteger(value) && value >= 0 && value < LEGACY_COLORS.length) {
+  if (typeof value === 'number' && Number.isInteger(value) && value >= 0 && value < PALETTE.length) {
     return value;
   }
 
   const token = String(value ?? '').trim().toLowerCase();
   if (/^\d+$/.test(token)) {
     const index = Number(token);
-    return index < LEGACY_COLORS.length ? index : PAPER_INDEX;
+    return index < PALETTE.length ? index : PAPER_INDEX;
   }
   return COLOR_INDEX.get(token) ?? PAPER_INDEX;
 }

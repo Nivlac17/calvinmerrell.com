@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useRef, useState } from 'r
 import { HashRouter, Link, Navigate, NavLink, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { apiRequest } from './api.js';
 import { normalizeArtCells, normalizeArtCsv, normalizeArtRecord } from './art-format.js';
+import { PALETTE } from './palette.js';
 import {
   CELL_COUNT,
   COLUMN_COUNT,
@@ -14,18 +15,7 @@ import {
   subscribeToRoom,
 } from './store.js';
 
-export const PALETTE = [
-  { name: 'Sunshine', value: 'yellow' },
-  { name: 'Ocean', value: 'blue' },
-  { name: 'Coral', value: 'red' },
-  { name: 'Leaf', value: 'green' },
-  { name: 'Blush', value: 'pink' },
-  { name: 'Iris', value: 'purple' },
-  { name: 'Stone', value: 'grey' },
-  { name: 'Tangerine', value: 'orange' },
-  { name: 'Ink', value: 'black' },
-  { name: 'Paper', value: 'whitesmoke' },
-];
+export { PALETTE };
 const PROFILE_CONTEXT = createContext('');
 const BASE_URL = import.meta.env.BASE_URL;
 
