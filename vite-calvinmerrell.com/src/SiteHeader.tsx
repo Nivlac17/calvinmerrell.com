@@ -19,6 +19,9 @@ export default function SiteHeader() {
       <a className="site-games-link" href="/games/">
         {text.games}
       </a>
+      <a className="site-games-link" href="/art/">
+        {text.art}
+      </a>
       <details className="language-menu">
         <summary>{text.changeLanguage}</summary>
         <nav aria-label={text.changeLanguage}>

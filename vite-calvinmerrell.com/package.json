@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "npm run build:art && vite",
+    "build": "npm run build:art && vite build",
+    "build:art": "vite build --config art-app/vite.config.js",
     "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
