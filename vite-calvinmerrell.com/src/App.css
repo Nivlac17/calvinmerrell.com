@@ -3,14 +3,16 @@
 }
 
 .site-header {
-  position: absolute;
+  position: relative;
   z-index: 10;
-  inset: 0 0 auto;
   display: flex;
+  align-items: center;
   justify-content: flex-end;
   box-sizing: border-box;
-  padding: 14px max(24px, calc((100% - 1080px) / 2));
-  pointer-events: none;
+  min-height: 68px;
+  gap: 10px;
+  padding: 10px max(24px, calc((100% - 1080px) / 2));
+  background: #111821;
 }
 
 .site-home-link {
@@ -514,6 +516,23 @@
   .hero-background {
     min-height: 275px;
     height: 36vh;
+  }
+
+  .site-header {
+    min-height: 60px;
+    flex-wrap: wrap;
+    gap: 7px;
+    padding: 10px 16px;
+  }
+
+  .site-home-link {
+    margin-right: auto;
+  }
+
+  .site-games-link,
+  .language-menu summary {
+    padding: 8px 10px;
+    font-size: 0.78rem;
   }
 
   .hero-content {
