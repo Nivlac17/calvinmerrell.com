@@ -62,6 +62,10 @@ const sections = [
           'Assisted people through difficult life situations.',
         ],
       },
+      {
+        organization: 'Scouting', location: 'Mapleton, UT', role: 'Community Service', dates: '2021–2023',
+        bullets: ['Earned the rank of Eagle Scout.', 'Organized service projects, fundraisers, and events.'],
+      },
     ],
   },
 ];
