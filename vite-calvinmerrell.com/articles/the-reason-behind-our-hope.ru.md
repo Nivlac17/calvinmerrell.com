@@ -1,55 +1,51 @@
 ---
 title: "Причина нашей надежды"
 description: Искупление Иисуса Христа — основа нашей надежды на вечную жизнь и возвышение.
-image: /images/library.jpg
+image: /images/Contemplative Jesus Portrait by the Lake.png
 slug: the-reason-behind-our-hope
 date: 2026-10-29
 ---
 
-# The Reason Behind Our Hope
+# Причина нашей надежды
 
-*Calvin W. Merrell*
+*Кэлвин У. Меррелл*
 
-The Atonement of Jesus Christ is the foundation of our hope for Eternal Life and Exaltation.
+Искупление Иисуса Христа — основа нашей надежды на вечную жизнь и возвышение.
 
-I was flying in an airplane hundreds of miles in the air. My stomach was in knots, and the deepest anxiety gripped me, yet I was the most excited young adult you would ever meet. I was on my way home.
+Я летел в самолёте на высоте в сотни километров. У меня всё сжалось внутри, меня охватила глубокая тревога, но при этом я был самым счастливым молодым человеком на свете. Я возвращался домой.
 
-Almost two years earlier, I had been flying on a similar plane, not headed home, but to serve as a missionary for the church. Until that point in my life I had never left the country and the farthest I had ever traveled from my home near Provo UT, was just across the Mississippi River. I had never lived on my own, and I could barely speak a few sentences of my assigned language. I was called to serve in the El Salvador, San Salvador West Mission. My fulltime service to the Lord was a life changing experience that I would not trade for the greatest riches of this world.
+Почти двумя годами ранее я летел на похожем самолёте, но не домой, а на миссию Церкви. До того дня я никогда не выезжал за границу. Самое дальнее путешествие от моего дома неподалёку от Прово, штат Юта, привело меня лишь к противоположному берегу Миссисипи. Я никогда не жил самостоятельно и едва мог произнести несколько фраз на назначенном мне языке. Меня призвали служить в миссии «Сан-Сальвадор-Уэст», Сальвадор. Полное посвящение Господу изменило мою жизнь; я не променял бы этот опыт на величайшие богатства мира.
 
-Now, two years older, and with a lifetime of experiences I was coming home. I had left El Salvador just weeks before my assigned departure date, to see a professional doctor in the United States. I had, inevitably, eaten some bad food and picked up a major stomach virus. A trip to a local doctor’s office and one ultrasound later, we discovered that my spleen had grown to almost 10 times its normal size. My results were sent to a doctor in Salt Lake, and 24 hours later I was on a plane home.
+Теперь, повзрослев на два года и накопив целую жизнь впечатлений, я возвращался домой. За несколько недель до назначенного отъезда я покинул Сальвадор, чтобы обратиться к специалисту в США. Как назло, я съел испорченную пищу и подхватил тяжёлую кишечную инфекцию. После визита к местному врачу и УЗИ выяснилось, что моя селезёнка увеличилась почти в десять раз. Результаты отправили врачу в Солт-Лейк-Сити, и через 24 часа я уже летел домой.
 
-Neither myself nor my family were even slightly prepared. My parents had received a call from the mission office saying that I would be coming home the next day, initiating a mad rush in my home to prepare for my arrival. As the youngest of five sons, I had watched my four older brothers leave and return from their own missionary service. As a child I remembered painting signs, decorating our home, and eagerly waiting with our large extended family at the airport for their arrival home.
+Ни я, ни моя семья совсем не были готовы к этому. Родителям позвонили из миссионерского офиса и сообщили, что на следующий день я буду дома. Началась суматошная подготовка к моему приезду. Я был младшим из пяти сыновей и видел, как четыре старших брата уезжали на миссию и возвращались. В детстве я помогал раскрашивать плакаты и украшать дом, а затем вместе с большой семьёй с нетерпением ждал их в аэропорту.
 
-It was finally my turn. I had longed for this day for the last two years and it had finally come. I worked my way through the airport to the exit, almost running through the airport to get to my family. At last I pushed my way through the security doors and there they were… my family in all their glory cheering and welcoming me home with open arms. I hugged them all, tears were shed, photos were taken, and a major piece of my life that had been missing for two years was finally back. I was home.
+Наконец настала моя очередь. Два года я мечтал об этом дне, и вот он пришёл. Я пробирался через аэропорт к выходу, почти бежал к своей семье. Пройдя через двери зоны досмотра, я увидел их: все радостно приветствовали меня и раскрыли объятия. Я обнял каждого; были слёзы и фотографии, а важная часть моей жизни, которой не было рядом два года, наконец вернулась. Я был дома.
 
-## A Change of Heart
+## Перемена сердца
 
-Throughout my service as a missionary I regularly asked myself: Who do you want to be when you step off that plane? My older brothers were the greatest example of the change of heart promised in the scriptures to disciples of Jesus Christ. I saw who they were before they left and who they were when they came back. They had left as young boys, determined & imperfect, but returned as great men – Disciples of Jesus Christ. The change I saw in them was my motivation to serve a mission. The Atonement of Jesus Christ gives us the power to move the mountains in our lives. It is that power which makes us into “new creatures” in Christ.
+Во время миссии я часто спрашивал себя: каким человеком ты хочешь стать, когда сойдёшь с самолёта? Старшие братья стали для меня лучшим примером перемены сердца, обещанной в Писаниях ученикам Иисуса Христа. Я видел, какими они были до отъезда и какими вернулись. Они уехали решительными, но несовершенными юношами, а вернулись замечательными мужчинами — учениками Иисуса Христа. Их перемена побудила меня отправиться на миссию. Искупление Иисуса Христа даёт нам силу сдвигать горы в своей жизни. Благодаря этой силе мы становимся «новыми созданиями» во Христе.
 
-In his book Mere Christianity, C. S. Lewis imagines Christ saying to us something like this: “Give me all of you!!! I don’t want so much of your time, so much of your talents and money, and so much of your work. I want YOU!!! ALL OF YOU!! I have not come to torment or frustrate the natural man or woman, but to KILL IT! No half measures will do. I don’t want to only prune a branch here and a branch there; rather I want the whole tree out! Hand it over to me, the whole outfit, all of your desires, all of your wants and wishes and dreams. Turn them ALL over to me, give yourself to me and I will make of you a new self---in my image. Give me yourself and in exchange I will give you Myself. My will, shall become your will. My heart, shall become your heart.”
+В книге «Просто христианство» К. С. Льюис представляет, что Христос мог бы сказать нам примерно так: «Отдай Мне всего себя! Мне нужна не часть твоего времени, талантов, денег или труда. Мне нужен ты — целиком! Я пришёл не мучить и не раздражать плотского человека, а уничтожить его. Полумеры не помогут. Я не хочу лишь подрезать одну ветвь здесь, другую там; Я хочу вырвать всё дерево. Отдай Мне всё: желания, мечты и стремления. Отдай их все, доверься Мне, и Я создам тебя заново по Своему образу. Отдай Мне себя, и Я дам тебе Себя. Моя воля станет твоей волей, Моё сердце — твоим сердцем».
 
-We have the opportunity to progress; to learn and to grow into what only a divine parent can see in us. As we move forward we lose ourselves in Christ, giving up the natural man, which is temporary and carnal, and trading it for the heart and intelligence of God, for “Whatever principle of intelligence we attain unto in this life, it will rise with us in the resurrection⁠.” (Doctrine and Covenants 130:18)
+Мы можем развиваться, учиться и становиться такими, какими нас видит только Небесный Отец. Продвигаясь вперёд, мы теряем себя во Христе: оставляем плотского, временного человека и обретаем сердце и разум Бога. Ведь «какой бы принцип разума мы ни приобрели в этой жизни, он восстанет с нами в воскресении» (Учение и Заветы 130:18).
 
-## The Condescension of God
+## Снисхождение Бога
 
-The Atonement teaches us of Christ’s divine love. It gives us immeasurable hope to know that such an all powerful Being would condescend to take on mortality. To suffer, to bleed, and to die so that we can return to him. He was a man of sorrows, he made his grave with the rich… he was left alone by his Father in the end of his life in order to complete the Atonement. He had to experience spiritual and physical death. He “suffered all things from the beginning" and by his grace we are saved. Elder Holland said “It is only an appreciation of this divine love that will make our own lesser suffering first bearable, then understandable, and finally redemptive.” -Elder Holland Like a Broken Vessel Nov. 2013
+Искупление учит нас божественной любви Христа. Мы обретаем безмерную надежду, зная, что Всемогущий снизошёл до смертной жизни, чтобы страдать, пролить кровь и умереть ради нашего возвращения к Нему. Он был мужем скорбей; Ему приготовили гробницу у богатого. В конце жизни Отец оставил Его одного, чтобы Он завершил Искупление. Христос испытал духовную и физическую смерть. Он «претерпел всё от начала», и мы спасены Его благодатью. Старейшина Холланд сказал: «Только ценя эту божественную любовь, мы сможем сначала перенести собственные, меньшие страдания, затем понять их и в конце концов найти в них искупление» («Как разбитый сосуд», ноябрь 2013 г.).
 
-In Japan there is a millionaire tradition called kintsugi, meaning “golden repair.” This tradition consists of taking beloved dishes and family heirlooms that have broken or cracked, and repairing them with glue mixed with gold dust. Carefully, the shards are reconnected, not hiding their broken pieces, but filling them with gold making these broken heirlooms more valuable than they ever were. We are all sinners, and we have all fallen short of the glory of God. We lay, as the shards of a broken bowl on the floor. But Christ has reached down out of Eternity to gather us. To mend us, and to make us whole.
+В Японии существует традиция кинцуги — «золотого соединения». Разбитую любимую посуду и семейные реликвии чинят клеем с золотым порошком. Осколки бережно соединяют, не скрывая трещин, а заполняя их золотом; так вещь становится ценнее прежнего. Все мы грешны и лишены славы Божьей. Мы лежим на полу, словно осколки разбитой чаши. Но Христос протянул руку из вечности, чтобы собрать нас, исцелить и сделать целыми.
 
-## Returning to our Heavenly Home
+## Возвращение в наш Небесный дом
 
-I have often pondered that moment in a crowded airport. There have been few moments in my life to rival the joy and peace that I felt at that time, surrounded by my family. The Atonement of Jesus Christ promises that we will be resurrected, and gives us the hope that we can live with our families eternally. “what is it that ye shall hope for?” asks Moroni, “Behold I say unto you that ye shall have hope through the atonement of Christ and the power of his resurrection, to be raised unto life eternal, and this because of your faith in him according to the promise.” Moroni 7:41
+Я часто вспоминаю тот миг в переполненном аэропорту. Мало что в моей жизни сравнится с радостью и покоем, которые я испытывал, окружённый семьёй. Искупление Иисуса Христа обещает воскресение и даёт надежду вечно жить с семьёй. «На что вам надеяться?» — спрашивает Мороний. «Вот я говорю вам, что вы будете иметь надежду через Искупление Христа и силу Его воскресения, чтобы быть воскрешёнными к жизни вечной; и это благодаря вашей вере в Него, согласно обещанию» (Мороний 7:41).
 
-The promises of temple covenants are given to all who follow on the covenant path. Our goal is Exaltation, to live together with our families forever. This is made possible through the Atonement of Jesus Christ, and there is no other way that we can be united as families forever except through that power.
+Обещания храмовых заветов даны всем, кто следует заветным путём. Наша цель — возвышение, чтобы вечно жить вместе с семьёй. Это возможно благодаря Искуплению Иисуса Христа; только эта сила может навеки объединить семьи.
 
-## Works Cited
+## Использованные источники
 
-Doctrine and Covenants. Section 130, Verse 18. The Church of Jesus Christ of Latter-day Saints.
-
-Holy Bible, Book of Mormon. Moroni 7:41. The Church of Jesus Christ of Latter-day Saints.
-
-Holland, Jeffrey R. “Like a Broken Vessel.” Liahona, November 2013.
-
-Lewis, C. S. Mere Christianity. New York: HarperCollins, 1952.
-
-Rasolondraibe, Ifanomezana. “Like a Kintsugi Bowl.” Liahona, April 2020.
+- «Учение и Заветы», раздел 130, стих 18. Церковь Иисуса Христа Святых последних дней.
+- «Библия; Книга Мормона», Мороний 7:41. Церковь Иисуса Христа Святых последних дней.
+- Холланд, Джеффри Р. «Как разбитый сосуд». «Лиахона», ноябрь 2013 г.
+- Льюис, К. С. «Просто христианство». Нью-Йорк: HarperCollins, 1952.
+- Расолондраибе, Ифаномезана. «Как чаша кинцуги». «Лиахона», апрель 2020 г.

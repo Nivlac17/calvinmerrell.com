@@ -1,55 +1,51 @@
 ---
 title: "私たちの希望の理由"
 description: イエス・キリストの贖罪は、永遠の命と昇栄への希望の基盤です。
-image: /images/library.jpg
+image: /images/Contemplative Jesus Portrait by the Lake.png
 slug: the-reason-behind-our-hope
 date: 2026-10-29
 ---
 
-# The Reason Behind Our Hope
+# 私たちの希望の理由
 
-*Calvin W. Merrell*
+*カルヴィン・W・メレル*
 
-The Atonement of Jesus Christ is the foundation of our hope for Eternal Life and Exaltation.
+イエス・キリストの贖罪は、永遠の命と昇栄への希望の基盤です。
 
-I was flying in an airplane hundreds of miles in the air. My stomach was in knots, and the deepest anxiety gripped me, yet I was the most excited young adult you would ever meet. I was on my way home.
+私は何百キロメートルもの上空を飛ぶ飛行機に乗っていました。胃が締めつけられ、深い不安に襲われていましたが、それでも誰よりも胸を躍らせている若者でした。家に帰る途中だったのです。
 
-Almost two years earlier, I had been flying on a similar plane, not headed home, but to serve as a missionary for the church. Until that point in my life I had never left the country and the farthest I had ever traveled from my home near Provo UT, was just across the Mississippi River. I had never lived on my own, and I could barely speak a few sentences of my assigned language. I was called to serve in the El Salvador, San Salvador West Mission. My fulltime service to the Lord was a life changing experience that I would not trade for the greatest riches of this world.
+その約二年前、私は似た飛行機に乗っていましたが、帰郷ではなく教会の宣教師として奉仕するためでした。それまで国外に出たことはなく、ユタ州プロボ近郊の家から最も遠くへ行ったのも、ミシシッピ川の向こう岸まででした。一人暮らしをしたこともなく、任地の言語で話せるのはほんの数文でした。私はエルサルバドル・サンサルバドル西伝道部に召されました。主に全身全霊をささげた奉仕は人生を変える経験であり、この世のどんな富とも引き換えにしたくありません。
 
-Now, two years older, and with a lifetime of experiences I was coming home. I had left El Salvador just weeks before my assigned departure date, to see a professional doctor in the United States. I had, inevitably, eaten some bad food and picked up a major stomach virus. A trip to a local doctor’s office and one ultrasound later, we discovered that my spleen had grown to almost 10 times its normal size. My results were sent to a doctor in Salt Lake, and 24 hours later I was on a plane home.
+二歳年を重ね、数え切れない経験をした私は、今、家に帰ろうとしていました。予定していた帰国日の数週間前、専門医に診てもらうためエルサルバドルを離れ、アメリカに向かいました。運悪く食べ物に当たり、ひどい胃腸炎になっていたのです。地元の診療所を訪れ、超音波検査を受けたところ、脾臓が通常のほぼ十倍に腫れていると分かりました。検査結果はソルトレークの医師に送られ、二十四時間後には帰国便に乗っていました。
 
-Neither myself nor my family were even slightly prepared. My parents had received a call from the mission office saying that I would be coming home the next day, initiating a mad rush in my home to prepare for my arrival. As the youngest of five sons, I had watched my four older brothers leave and return from their own missionary service. As a child I remembered painting signs, decorating our home, and eagerly waiting with our large extended family at the airport for their arrival home.
+私も家族もまったく心の準備ができていませんでした。両親は伝道部事務所から、私が翌日帰宅すると電話で知らされ、家では急いで迎える準備が始まりました。五人兄弟の末っ子だった私は、四人の兄たちが伝道に出て帰ってくるのを見てきました。子供のころ、看板に色を塗り、家を飾り、大勢の親戚と空港で彼らの帰りを待ちわびたことを覚えています。
 
-It was finally my turn. I had longed for this day for the last two years and it had finally come. I worked my way through the airport to the exit, almost running through the airport to get to my family. At last I pushed my way through the security doors and there they were… my family in all their glory cheering and welcoming me home with open arms. I hugged them all, tears were shed, photos were taken, and a major piece of my life that had been missing for two years was finally back. I was home.
+ついに私の番が来ました。二年間待ち望んだ日がとうとう訪れたのです。空港を抜けて出口へ向かい、家族のもとへほとんど走っていきました。保安区域の扉を押し抜けると、そこに家族がいました。皆が歓声を上げ、両手を広げて迎えてくれました。一人一人を抱きしめ、涙が流れ、写真を撮りました。二年間離れていた人生の大切な一部が、ようやく戻ってきたのです。私は家に帰りました。
 
-## A Change of Heart
+## 心の変化
 
-Throughout my service as a missionary I regularly asked myself: Who do you want to be when you step off that plane? My older brothers were the greatest example of the change of heart promised in the scriptures to disciples of Jesus Christ. I saw who they were before they left and who they were when they came back. They had left as young boys, determined & imperfect, but returned as great men – Disciples of Jesus Christ. The change I saw in them was my motivation to serve a mission. The Atonement of Jesus Christ gives us the power to move the mountains in our lives. It is that power which makes us into “new creatures” in Christ.
+宣教師として奉仕する間、私はよく自分に問いかけました。「飛行機を降りるとき、どんな人になっていたいだろう。」兄たちは、イエス・キリストの弟子に約束されている心の変化を示す最高の模範でした。出発前と帰還後の彼らを見ていました。決意はあっても不完全な少年として出発し、偉大な男性、イエス・キリストの弟子として戻ってきました。その変化が、私の伝道の動機になりました。イエス・キリストの贖罪は、人生の山を動かす力を与えてくれます。その力によって私たちはキリストにあって「新しく造られた者」となります。
 
-In his book Mere Christianity, C. S. Lewis imagines Christ saying to us something like this: “Give me all of you!!! I don’t want so much of your time, so much of your talents and money, and so much of your work. I want YOU!!! ALL OF YOU!! I have not come to torment or frustrate the natural man or woman, but to KILL IT! No half measures will do. I don’t want to only prune a branch here and a branch there; rather I want the whole tree out! Hand it over to me, the whole outfit, all of your desires, all of your wants and wishes and dreams. Turn them ALL over to me, give yourself to me and I will make of you a new self---in my image. Give me yourself and in exchange I will give you Myself. My will, shall become your will. My heart, shall become your heart.”
+C・S・ルイスは著書『キリスト教の精髄』で、キリストが私たちにこう語りかける姿を想像しています。「あなたのすべてをわたしに渡しなさい。時間や才能やお金や働きの一部ではなく、あなた自身が欲しい。わたしは生まれながらの人を苦しめたり挫折させたりするためではなく、それを滅ぼすために来た。中途半端ではいけない。枝を一本ずつ剪定するのではなく、木全体を根こそぎにしたい。願いも望みも夢も、すべてわたしに渡しなさい。あなた自身を委ねるなら、わたしはあなたをわたしの姿に似た新しい人にする。あなたが自分を渡すなら、わたしも自分を与えよう。わたしの意志があなたの意志となり、わたしの心があなたの心となる。」
 
-We have the opportunity to progress; to learn and to grow into what only a divine parent can see in us. As we move forward we lose ourselves in Christ, giving up the natural man, which is temporary and carnal, and trading it for the heart and intelligence of God, for “Whatever principle of intelligence we attain unto in this life, it will rise with us in the resurrection⁠.” (Doctrine and Covenants 130:18)
+私たちは成長し、学び、天の御父だけが見ておられる自分へと近づく機会を与えられています。前進するにつれ、私たちはキリストにあって自分を失い、はかなく肉欲に傾く生まれながらの人を捨て、神の心と知性を受け入れます。「この世で得る英知の原則は何であろうと、復活のときにわたしたちとともによみがえる」のです（教義と聖約130:18）。
 
-## The Condescension of God
+## 神の降下
 
-The Atonement teaches us of Christ’s divine love. It gives us immeasurable hope to know that such an all powerful Being would condescend to take on mortality. To suffer, to bleed, and to die so that we can return to him. He was a man of sorrows, he made his grave with the rich… he was left alone by his Father in the end of his life in order to complete the Atonement. He had to experience spiritual and physical death. He “suffered all things from the beginning" and by his grace we are saved. Elder Holland said “It is only an appreciation of this divine love that will make our own lesser suffering first bearable, then understandable, and finally redemptive.” -Elder Holland Like a Broken Vessel Nov. 2013
+贖罪はキリストの神聖な愛を教えてくれます。全能の御方が死すべき状態を引き受け、苦しみ、血を流し、死ぬほどへりくだられたことを知るとき、計り知れない希望が湧きます。キリストは悲しみの人であり、富む者とともに葬られました。生涯の終わり、贖罪を成し遂げるために御父から独りにされました。霊の死と肉体の死を経験しなければなりませんでした。主は「初めからすべてのことを苦しまれ」、その恵みによって私たちは救われます。ホランド長老はこう述べています。「この神聖な愛を理解して初めて、私たち自身のより小さな苦しみは、まず耐えられるものとなり、次に理解できるものとなり、ついには贖いをもたらすものとなります」（「砕かれた器のように」『リアホナ』2013年11月）。
 
-In Japan there is a millionaire tradition called kintsugi, meaning “golden repair.” This tradition consists of taking beloved dishes and family heirlooms that have broken or cracked, and repairing them with glue mixed with gold dust. Carefully, the shards are reconnected, not hiding their broken pieces, but filling them with gold making these broken heirlooms more valuable than they ever were. We are all sinners, and we have all fallen short of the glory of God. We lay, as the shards of a broken bowl on the floor. But Christ has reached down out of Eternity to gather us. To mend us, and to make us whole.
+日本には「金継ぎ」という伝統があります。金の粉を混ぜた接着剤で、割れたりひびが入ったりした大切な器や家宝を修復するものです。破片を丁寧につなぎ合わせ、傷を隠すのではなく金で満たすことで、器は以前よりも価値あるものになります。私たちは皆罪を犯し、神の栄光を受けられない者です。割れた器の破片のように床に散らばっています。しかしキリストは永遠から手を伸ばし、私たちを集め、癒やし、完全な者としてくださいます。
 
-## Returning to our Heavenly Home
+## 天の家に帰る
 
-I have often pondered that moment in a crowded airport. There have been few moments in my life to rival the joy and peace that I felt at that time, surrounded by my family. The Atonement of Jesus Christ promises that we will be resurrected, and gives us the hope that we can live with our families eternally. “what is it that ye shall hope for?” asks Moroni, “Behold I say unto you that ye shall have hope through the atonement of Christ and the power of his resurrection, to be raised unto life eternal, and this because of your faith in him according to the promise.” Moroni 7:41
+人であふれる空港でのあの瞬間を、私はよく思い返します。家族に囲まれて感じた喜びと平安に匹敵する経験は、人生にほとんどありません。イエス・キリストの贖罪は復活を約束し、家族と永遠に暮らせるという希望を与えてくれます。モロナイは「あなたがたの望むべきことは何であろうか」と問い、「キリストの贖罪とその復活の力によって、永遠の命によみがえる希望を持つべきである。これは、約束に応じてキリストを信じるあなたがたの信仰による」と教えています（モロナイ7:41）。
 
-The promises of temple covenants are given to all who follow on the covenant path. Our goal is Exaltation, to live together with our families forever. This is made possible through the Atonement of Jesus Christ, and there is no other way that we can be united as families forever except through that power.
+神殿の聖約の約束は、聖約の道を歩むすべての人に与えられます。私たちの目標は昇栄、つまり家族と永遠にともに暮らすことです。これはイエス・キリストの贖罪によって可能になります。その力によるほか、家族が永遠に結ばれる道はありません。
 
-## Works Cited
+## 参考文献
 
-Doctrine and Covenants. Section 130, Verse 18. The Church of Jesus Christ of Latter-day Saints.
-
-Holy Bible, Book of Mormon. Moroni 7:41. The Church of Jesus Christ of Latter-day Saints.
-
-Holland, Jeffrey R. “Like a Broken Vessel.” Liahona, November 2013.
-
-Lewis, C. S. Mere Christianity. New York: HarperCollins, 1952.
-
-Rasolondraibe, Ifanomezana. “Like a Kintsugi Bowl.” Liahona, April 2020.
+- 『教義と聖約』第130章18節。末日聖徒イエス・キリスト教会。
+- 『聖書・モルモン書』モロナイ7:41。末日聖徒イエス・キリスト教会。
+- ホランド、ジェフリー・R「砕かれた器のように」『リアホナ』2013年11月。
+- ルイス、C・S『キリスト教の精髄』ニューヨーク：HarperCollins、1952年。
+- ラソロンドライベ、イファノメザナ「金継ぎの器のように」『リアホナ』2020年4月。

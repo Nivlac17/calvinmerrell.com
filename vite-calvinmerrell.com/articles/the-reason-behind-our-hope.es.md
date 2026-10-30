@@ -1,7 +1,7 @@
 ---
 title: "La razón de nuestra esperanza"
 description: La expiación de Jesucristo es el fundamento de nuestra esperanza de vida eterna y exaltación.
-image: /images/library.jpg
+image: /images/Contemplative Jesus Portrait by the Lake.png
 slug: the-reason-behind-our-hope
 date: 2026-10-29
 ---
