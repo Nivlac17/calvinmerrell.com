@@ -3,6 +3,7 @@ import { BrowserRouter, Link, Route, Routes, useLocation, useParams } from 'reac
 import './App.css';
 import HomePage from './HomePage';
 import SiteHeader from './SiteHeader';
+import ResumePage from './ResumePage';
 import { isLanguage, languageFromPathname, messages, pathForLanguage } from './lib/i18n';
 
 const ArticlePage = lazy(() => import('./ArticlePage'));
@@ -38,8 +39,9 @@ function SiteRoutes() {
 
   return (
     <>
-      <SiteHeader />
+      {location.pathname !== '/resume' && <SiteHeader />}
       <Routes>
+        <Route path="/resume" element={<ResumePage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/:locale" element={<LocalizedHomePage />} />
         <Route
