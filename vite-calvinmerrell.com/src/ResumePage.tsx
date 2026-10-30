@@ -7,8 +7,8 @@ const sections = [
       organization: 'Brigham Young University', location: 'Provo, UT', role: 'Bachelor of Science in Computer Science (In Progress)', dates: '2023–2027',
       bullets: [
         'Pursuing a Bachelor’s degree in Computer Science with a Software Engineering emphasis',
-        'Proficient in Java, Python, JavaScript, C++, and C',
-        'Coursework in data structures, algorithms, databases, and web development',
+        'Proficiency in Java, Python, JavaScript, C++, and C',
+        'Coursework included data structures, algorithms, databases, and web development',
       ],
     }],
   },
@@ -18,18 +18,20 @@ const sections = [
       {
         organization: 'BYU Technology Support Center (TSC)', location: 'Provo, UT', role: 'TSC Agent · Courses Team Lead', dates: '2023–Present',
         bullets: [
-          'Advanced from Calls Agent to Senior Analyst and Supervisor, then joined the Courses Team supporting faculty on Canvas and Learning Suite.',
-          'Led student support for learning management systems.',
-          'Resolved support requests for students, faculty, and staff by phone and email, owning tickets through resolution.',
-          'Collaborated with teammates and escalated complex cases while maintaining ownership of customer concerns.',
+          'Started as a Calls Agent, promoted to Senior Analyst, and promoted to Supervisor.',
+          'Joined the Courses Team to provide direct support to faculty using learning management systems such as Canvas and Learning Suite.',
+          'Promoted to Courses Team Lead, responsible for student learning management system support.',
+          'Provided technical support for students, faculty, and staff by phone and email.',
+          'Worked directly with customers to resolve tickets from start to finish, ensuring issues were fully resolved before closure.',
+          'Collaborated with team members and escalated complex cases when necessary while maintaining ownership of customer concerns, demonstrating patience and persistence in troubleshooting.',
         ],
       },
       {
         organization: 'Merrell Recycling', location: 'Mapleton, UT', role: 'Owner / Operator', dates: '2010–2016',
         bullets: [
-          'Maintained six years of on-time weekly curbside recycling service across three cities, serving every scheduled home.',
-          'Acquired customers through events, online publications, and phone outreach.',
-          'Negotiated the sale of the business to Recyclops.',
+          'Maintained a six-year perfect record for on-time weekly curbside recycling for customers in three cities without ever missing a house.',
+          'Provided customer service, including acquiring customers through events, online publications, and phone calls.',
+          'Negotiated the acquisition of the business by Recyclops.',
         ],
       },
     ],
@@ -38,12 +40,12 @@ const sections = [
     title: 'Projects',
     entries: [
       {
-        organization: 'Chess Application', location: 'Java · Console game with networked components', role: '', dates: '',
+        organization: 'Chess Application (Java)', location: 'Console-based chess game with networked components', role: '', dates: '',
         href: 'https://github.com/Nivlac17/chess', bullets: ['Developed a console chess game in Java.', 'Implemented WebSocket communication and SQL database integration.'],
       },
       {
-        organization: 'Lines of Light', location: 'Online grid art game', role: '', dates: '',
-        href: 'https://github.com/Nivlac17/startup', bullets: ['Built a React frontend hosted on AWS for drawing and saving art to an online database with secure login.'],
+        organization: 'Lines of Light', location: 'Online Grid Art Game', role: '', dates: '',
+        href: 'https://github.com/Nivlac17/startup', bullets: ['Built a React frontend hosted on AWS that allows users to draw and save art to an online database with a secure login system.'],
       },
     ],
   },
@@ -53,14 +55,12 @@ const sections = [
       {
         organization: 'The Church of Jesus Christ of Latter-day Saints', location: 'El Salvador', role: 'Missionary', dates: '2021–2023',
         bullets: [
-          'Served local communities through service, teaching, and proselytizing; taught English Connect and self-reliance courses.',
-          'Held leadership roles including Missionary Trainer and District Leader.',
-          'Fluent Spanish speaker; assisted people through difficult life situations.',
+          'Served the people of El Salvador, working 13-hour days, seven days a week, doing community service, proselytizing, and teaching classes.',
+          'Taught English courses (English Connect) and Self-Reliance courses.',
+          'Held multiple leadership roles, including Missionary Trainer and District Leader.',
+          'Fluent Spanish speaker.',
+          'Assisted people through difficult life situations.',
         ],
-      },
-      {
-        organization: 'Scouting', location: 'Mapleton, UT', role: 'Community Service', dates: '2021–2023',
-        bullets: ['Earned the rank of Eagle Scout.', 'Organized service projects, fundraisers, and events.'],
       },
     ],
   },
@@ -97,7 +97,7 @@ export default function ResumePage() {
 
         <section className="resume-section">
           <h2>Skills</h2>
-          <p className="resume-skills">Computer troubleshooting · Java · Python · JavaScript · C++ · C · React · Git · SQL · WebSocket · HTTP · Team leadership · Adaptability · Communication · Strong work ethic · Positive attitude</p>
+          <p className="resume-skills">Computer troubleshooting · Java · Python · JavaScript · C++ · C · React · Git · SQL · WebSocket · HTTP · Team leadership · Ability to adapt to situations · Strong work ethic · Positive attitude · Strong communication</p>
         </section>
 
         {sections.map((section) => (
