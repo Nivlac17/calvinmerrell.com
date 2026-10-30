@@ -21,7 +21,7 @@ export default function HomePage() {
     <>
       <div className="hero-background">
         <img
-          src="/images/vernal-sunset.jpeg"
+          src="/images/vernal-sunset.webp"
           alt={text.heroImageAlt}
         />
         <div className="hero-overlay" aria-hidden="true"></div>

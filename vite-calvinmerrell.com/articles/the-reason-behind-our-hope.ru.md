@@ -1,7 +1,7 @@
 ---
 title: "Причина нашей надежды"
 description: Искупление Иисуса Христа — основа нашей надежды на вечную жизнь и возвышение.
-image: /images/Contemplative Jesus Portrait by the Lake.png
+image: /images/Contemplative Jesus Portrait by the Lake.webp
 slug: the-reason-behind-our-hope
 date: 2026-10-29
 ---

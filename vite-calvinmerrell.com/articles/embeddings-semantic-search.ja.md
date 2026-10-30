@@ -1,7 +1,7 @@
 ---
 title: "Embeddingとセマンティック検索：情報科学を学ぶ学生向けガイド"
 description: 上級学年の情報科学専攻学生向けに、テキストEmbedding、ベクトルの次元、最新のセマンティック検索戦略を実践的に紹介します。
-image: /images/embding-Photo.jpg
+image: /images/embding-Photo.webp
 slug: embeddings-semantic-search
 date: 2026-10-21
 ---

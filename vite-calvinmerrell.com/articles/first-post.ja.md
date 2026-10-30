@@ -1,7 +1,7 @@
 ---
 title: 最初の記事
 description: これが私の最初の記事です。
-image: https://calvinmerrell.com/images/library.jpg
+image: https://calvinmerrell.com/images/library.webp
 slug: my-first-article
 date: 2026-06-18
 ---

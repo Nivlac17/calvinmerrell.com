@@ -1,7 +1,7 @@
 ---
 title: Mi primer artículo
 description: Este es mi primer artículo.
-image: https://calvinmerrell.com/images/library.jpg
+image: https://calvinmerrell.com/images/library.webp
 slug: my-first-article
 date: 2026-06-18
 ---

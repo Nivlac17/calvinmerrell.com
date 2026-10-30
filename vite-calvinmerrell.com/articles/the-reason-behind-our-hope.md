@@ -1,7 +1,7 @@
 ---
 title: "The Reason Behind Our Hope"
 description: The Atonement of Jesus Christ is the foundation of our hope for eternal life and exaltation.
-image: /images/Contemplative Jesus Portrait by the Lake.png
+image: /images/Contemplative Jesus Portrait by the Lake.webp
 slug: the-reason-behind-our-hope
 date: 2026-10-29
 ---

@@ -1,7 +1,7 @@
 ---
 title: 学部のコンピューターサイエンス課程では量子コンピューティング入門をどう教えるべきか
 description: 本レポートでは、大学生に量子コンピューティングを教える4つの方法を比較し、実践的なソフトウェア中心の選択科目を提案します。
-image: /images/programmer-at-a-computer.jpeg
+image: /images/programmer-at-a-computer.webp
 slug: quantum-computing
 date: 2026-10-10
 ---

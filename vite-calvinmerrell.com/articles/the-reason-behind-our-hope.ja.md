@@ -1,7 +1,7 @@
 ---
 title: "私たちの希望の理由"
 description: イエス・キリストの贖罪は、永遠の命と昇栄への希望の基盤です。
-image: /images/Contemplative Jesus Portrait by the Lake.png
+image: /images/Contemplative Jesus Portrait by the Lake.webp
 slug: the-reason-behind-our-hope
 date: 2026-10-29
 ---

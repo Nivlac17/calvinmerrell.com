@@ -1,7 +1,7 @@
 ---
 title: "量子コンピューティングとは？情報科学を学ぶ学部生向けの解説"
 description: ビット、量子ビット、重ね合わせ、もつれ、干渉、量子アルゴリズム、RSAへの影響を情報科学の学生向けに解説します。
-image: /images/technology-1283624_1920.jpg
+image: /images/technology-1283624_1920.webp
 slug: what-is-quantum-computing
 date: 2026-10-14
 ---

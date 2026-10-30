@@ -1,7 +1,7 @@
 ---
 title: "How should undergraduate computer science programs teach introductory quantum computing?"
 description: This report compares four approaches to teaching quantum computing to undergraduates and recommends a practical, software-based elective.
-image: /images/programmer-at-a-computer.jpeg
+image: /images/programmer-at-a-computer.webp
 slug: quantum-computing
 date: 2026-10-10
 ---

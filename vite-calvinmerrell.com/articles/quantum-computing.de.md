@@ -1,7 +1,7 @@
 ---
 title: "Wie sollten Informatikstudiengänge einführendes Quantencomputing vermitteln?"
 description: Dieser Bericht vergleicht vier Ansätze für Quantencomputing im Bachelorstudium und empfiehlt ein praxisorientiertes, softwarebasiertes Wahlfach.
-image: /images/programmer-at-a-computer.jpeg
+image: /images/programmer-at-a-computer.webp
 slug: quantum-computing
 date: 2026-10-10
 ---

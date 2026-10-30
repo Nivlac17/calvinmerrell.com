@@ -1,7 +1,7 @@
 ---
 title: "Embeddings und semantische Suche: Ein Leitfaden für Informatikstudierende"
 description: Eine praktische Einführung in Text-Embeddings, Vektordimensionen und moderne Strategien der semantischen Suche für fortgeschrittene Informatikstudierende.
-image: /images/embding-Photo.jpg
+image: /images/embding-Photo.webp
 slug: embeddings-semantic-search
 date: 2026-10-21
 ---

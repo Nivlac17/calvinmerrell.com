@@ -1,7 +1,7 @@
 ---
 title: "Embeddings and Semantic Search: A Guide for Computer Science Students"
 description: A practical introduction to text embeddings, vector dimensions, and modern semantic search strategies for upper-division computer science students.
-image: /images/embding-Photo.jpg
+image: /images/embding-Photo.webp
 slug: embeddings-semantic-search
 date: 2026-10-21
 ---

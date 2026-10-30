@@ -1,7 +1,7 @@
 ---
 title: "¿Cómo deberían enseñar los programas universitarios de informática la computación cuántica introductoria?"
 description: Este informe compara cuatro enfoques para enseñar computación cuántica a estudiantes universitarios y recomienda una asignatura optativa práctica basada en software.
-image: /images/programmer-at-a-computer.jpeg
+image: /images/programmer-at-a-computer.webp
 slug: quantum-computing
 date: 2026-10-10
 ---

@@ -1,7 +1,7 @@
 ---
 title: "Der Grund für unsere Hoffnung"
 description: Das Sühnopfer Jesu Christi ist die Grundlage unserer Hoffnung auf ewiges Leben und Erhöhung.
-image: /images/Contemplative Jesus Portrait by the Lake.png
+image: /images/Contemplative Jesus Portrait by the Lake.webp
 slug: the-reason-behind-our-hope
 date: 2026-10-29
 ---

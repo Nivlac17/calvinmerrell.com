@@ -1,7 +1,7 @@
 ---
 title: "Embeddings y búsqueda semántica: guía para estudiantes de informática"
 description: Introducción práctica a los embeddings de texto, las dimensiones vectoriales y las estrategias modernas de búsqueda semántica para estudiantes avanzados de informática.
-image: /images/embding-Photo.jpg
+image: /images/embding-Photo.webp
 slug: embeddings-semantic-search
 date: 2026-10-21
 ---
