@@ -185,7 +185,7 @@
 
 .section-heading h2 {
   margin: 0;
-  color: #17202d;
+  color: var(--text-h);
   font-size: clamp(1.65rem, 3vw, 2.25rem);
   letter-spacing: -0.035em;
 }
