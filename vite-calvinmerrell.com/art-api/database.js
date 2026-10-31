@@ -15,16 +15,19 @@ async function connect() {
     users: db.collection('user'),
     art: db.collection('portfolio'),
     chat: db.collection('chat'),
+    subscribers: db.collection('newsletter_subscribers'),
   };
   await collections.users.createIndex({ email: 1 }, { unique: true });
   await collections.art.createIndex({ userName: 1, title: 1 });
   await collections.chat.createIndex({ roomId: 1, createdAt: 1 });
+  await collections.subscribers.createIndex({ email: 1 }, { unique: true });
   console.log(`Connected to MongoDB database ${databaseName}`);
 }
 
 function getUserByEmail(email) { return collections.users.findOne({ email }); }
 function getUserByToken(token) { return collections.users.findOne({ token }); }
 function addUser(user) { return collections.users.insertOne(user); }
+function addSubscriber(subscriber) { return collections.subscribers.insertOne(subscriber); }
 function updateUser(user) {
   const { _id, ...fields } = user;
   return collections.users.updateOne({ _id }, { $set: fields });
@@ -80,4 +83,4 @@ async function addChat(message) {
   return message;
 }
 
-module.exports = { connect, getUserByEmail, getUserByToken, addUser, updateUser, getAllArt, getArt, saveArt, deleteArt, getChat, addChat };
+module.exports = { connect, getUserByEmail, getUserByToken, addUser, addSubscriber, updateUser, getAllArt, getArt, saveArt, deleteArt, getChat, addChat };

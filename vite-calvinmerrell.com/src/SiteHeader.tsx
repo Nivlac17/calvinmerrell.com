@@ -22,6 +22,9 @@ export default function SiteHeader() {
       <a className="site-games-link" href="/art/">
         {text.art}
       </a>
+      <Link className="site-games-link" to={pathForLanguage('/subscribe/', language)}>
+        {text.subscribe}
+      </Link>
       <details className="language-menu">
         <summary>{text.changeLanguage}</summary>
         <nav aria-label={text.changeLanguage}>

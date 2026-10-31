@@ -105,6 +105,34 @@ api.delete('/auth/logout', async (req, res, next) => {
   } catch (error) { next(error); }
 });
 
+api.post('/subscribe', async (req, res, next) => {
+  try {
+    const email = normalizeEmail(req.body.email);
+    const consent = req.body.consent === true;
+    const honeypot = typeof req.body.website === 'string' ? req.body.website.trim() : '';
+
+    // Silently accept filled honeypots so simple bots do not learn the field is monitored.
+    if (honeypot) return res.sendStatus(202);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254 || !consent) {
+      return res.status(400).json({ msg: 'Enter a valid email address and confirm the subscription.' });
+    }
+
+    try {
+      await DB.addSubscriber({
+        email,
+        status: 'subscribed',
+        source: 'website',
+        consentTextVersion: 'newsletter-v1',
+        subscribedAt: new Date(),
+      });
+    } catch (error) {
+      if (error.code !== 11000) throw error;
+    }
+
+    res.sendStatus(202);
+  } catch (error) { next(error); }
+});
+
 api.get('/portfolio/all', requireAuth, async (_req, res, next) => {
   try { res.json(await DB.getAllArt()); } catch (error) { next(error); }
 });

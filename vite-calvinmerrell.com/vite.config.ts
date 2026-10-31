@@ -89,6 +89,21 @@ function generateStaticArticleRoutes(): Plugin {
         await writeFile(resolve(directory, 'index.html'), localizedHtml);
       }
 
+      for (const { code } of languages) {
+        const localePrefix = code === 'en' ? '' : `${code}/`;
+        const subscribeUrl = `https://calvinmerrell.com/${localePrefix}subscribe/`;
+        const subscribeHtml = pageHtml(
+          html,
+          code,
+          `${messages[code].subscribe} | Calvin W. Merrell`,
+          messages[code].subscribeDescription,
+          subscribeUrl,
+        );
+        const subscribeDirectory = resolve(outputDirectory, localePrefix, 'subscribe');
+        await mkdir(subscribeDirectory, { recursive: true });
+        await writeFile(resolve(subscribeDirectory, 'index.html'), subscribeHtml);
+      }
+
       for (const file of files.filter((entry) => entry.endsWith('.md'))) {
         const source = await readFile(resolve(articlesDirectory, file), 'utf8');
         const { data } = matter(source);

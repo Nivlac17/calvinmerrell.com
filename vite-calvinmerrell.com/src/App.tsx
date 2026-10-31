@@ -4,6 +4,7 @@ import './App.css';
 import HomePage from './HomePage';
 import SiteHeader from './SiteHeader';
 import ResumePage from './ResumePage';
+import SubscribePage from './SubscribePage';
 import { isLanguage, languageFromPathname, messages, pathForLanguage } from './lib/i18n';
 
 const ArticlePage = lazy(() => import('./ArticlePage'));
@@ -42,6 +43,8 @@ function SiteRoutes() {
       {location.pathname !== '/resume' && <SiteHeader />}
       <Routes>
         <Route path="/resume" element={<ResumePage />} />
+        <Route path="/subscribe" element={<SubscribePage />} />
+        <Route path="/:locale/subscribe" element={<SubscribePage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/:locale" element={<LocalizedHomePage />} />
         <Route
