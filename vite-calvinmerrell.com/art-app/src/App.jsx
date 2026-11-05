@@ -68,7 +68,6 @@ export default function App() {
 
           <footer className="art-footer">
             <span>Lines of Light</span>
-            <span>Made for small acts of imagination.</span>
             <a href="/">Calvin Merrell</a>
           </footer>
         </div>
@@ -153,7 +152,7 @@ function ProfilePage({ profile, onSignIn }) {
               <input id="artist-password" type="password" autoComplete={mode === 'create' ? 'new-password' : 'current-password'} minLength={mode === 'create' ? 8 : 1} maxLength={128} required placeholder={mode === 'create' ? 'At least 8 characters' : 'Password'} value={password} onChange={(event) => setPassword(event.target.value)} />
               {error && <p className="form-error" role="alert">{error}</p>}
               <button className="button primary full" type="submit" disabled={busy || !email.trim() || !password || (mode === 'create' && password.length < 8)}>
-                {busy ? 'Connecting…' : mode === 'create' ? 'Create account' : 'Sign in'} <span aria-hidden="true">↗</span>
+                {busy ? 'Connecting…' : mode === 'create' ? 'Create account' : 'Sign in'}
               </button>
             </form>
             <button className="text-button auth-mode-toggle" onClick={() => { setMode(mode === 'create' ? 'login' : 'create'); setError(''); }}>
@@ -222,16 +221,15 @@ function GalleryPage() {
         <div>
           <p className="eyebrow">Your sketchbook</p>
           <h1>Artist’s gallery</h1>
-          <p>Browse artwork from the studio or start a new canvas.</p>
         </div>
       </section>
 
       <form className="new-art-card" onSubmit={createArtwork}>
         <div className="new-art-mark" aria-hidden="true">＋</div>
-        <div className="new-art-text"><strong>Start with a blank grid</strong><span>Name your next idea and make it yours.</span></div>
+        <div className="new-art-text"><strong>Start with a blank grid</strong></div>
         <label className="sr-only" htmlFor="new-art-title">New artwork title</label>
         <input id="new-art-title" maxLength={60} placeholder="Artwork title" value={title} onChange={(event) => setTitle(event.target.value)} />
-        <button className="button primary" type="submit" disabled={!title.trim()}>New artwork <span aria-hidden="true">↗</span></button>
+        <button className="button primary" type="submit" disabled={!title.trim()}>New artwork</button>
       </form>
 
       {artworks.length === 0 ? (
