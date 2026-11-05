@@ -56,6 +56,9 @@
     { x: 1.5, y: 6.5, dir: 'right', color: colors.rose },
     { x: 16.5, y: 6.5, dir: 'left', color: colors.gold },
     { x: 8.5, y: 6.5, dir: 'down', color: colors.red },
+    { x: 4.5, y: 3.5, dir: 'down', color: colors.blue },
+    { x: 12.5, y: 3.5, dir: 'down', color: colors.purple },
+    { x: 4.5, y: 8.5, dir: 'up', color: colors.amber },
   ];
   const vectors = { up: { x: 0, y: -1 }, right: { x: 1, y: 0 }, down: { x: 0, y: 1 }, left: { x: -1, y: 0 } };
 
@@ -70,7 +73,7 @@
     return spawns.slice(0, rivals + 1).map((spawn, i) => ({
       x: spawn.x * TILE, y: spawn.y * TILE, dir: spawn.dir, color: spawn.color,
       player: !!spawn.player, lives: i === 0 ? playerLives : 2, spawn: i, alive: true,
-      speed: i === 0 ? 145 : Math.min(88 + (level - 1) * 11, 176),
+      speed: i === 0 ? 155 : Math.min(95 + (level - 1) * 11, 190),
       fireInterval: i === 0 ? .34 : Math.max(.42, .95 - (level - 1) * .09),
       fireClock: i === 0 ? .5 : .6 + Math.random() * 1.2,
       routeTarget: null, blockedTime: 0, blockedDir: null, stun: 0,
