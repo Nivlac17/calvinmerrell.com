@@ -6,6 +6,14 @@
 <meta name="theme-color" content="#f8f7f2">
 <title>Animal Match | Little Arcade</title>
 <link rel="stylesheet" href="/games/arcade.css">
+<style>
+.memory-board{grid-template-columns:repeat(var(--memory-columns,4),minmax(0,1fr))}
+.memory-card{font-size:clamp(12px,3vw,43px);min-width:0}
+.memory-empty{visibility:hidden;aspect-ratio:1.18}
+.memory-difficulties{display:flex;gap:5px}
+.memory-difficulties .action-button[aria-pressed="true"]{background:#25291f;color:#fff}
+@media(max-width:620px){.game-toolbar{flex-wrap:wrap}.toolbar-actions{flex-wrap:wrap}.memory-difficulties{gap:3px}.memory-difficulties .action-button{padding:7px 8px}.memory-board{gap:4px}.memory-card{border-radius:6px}}
+</style>
 <script src="/games/js/analytics.js"></script>
 </head>
 <body data-game="memory">
@@ -19,8 +27,8 @@
 <main>
 <div class="topbar"><div class="crumb"><a href="/games/">ARCADE</a> &nbsp;/&nbsp; <b>Animal Match</b></div><div class="top-actions"><div class="pill"><i class="dot"></i>Game ready</div><div class="avatar" aria-hidden="true">☀️</div></div></div>
 <section class="view active" id="view-memory">
-        <div class="game-heading"><div><h1>Animal Match</h1><p>Find all 8 matching animal pairs.</p></div><a class="back-button" href="/games/">← All games</a></div>
-        <div class="game-shell"><div class="game-toolbar"><div class="stats"><div class="stat"><span>Moves</span><b id="memory-moves">0</b></div><div class="stat"><span>Matched</span><b><span id="memory-matches" style="display:inline">0</span> / 8</b></div></div><div class="toolbar-actions"><button class="action-button primary" id="memory-reset">↻ New game</button></div></div><div class="memory-board" id="memory-board" aria-label="Animal matching cards"></div><p class="memory-foot">Find two of the same animal to make a match.</p></div>
+        <div class="game-heading"><div><h1>Animal Match</h1><p id="memory-description">Find all 8 matching animal pairs.</p></div><a class="back-button" href="/games/">← All games</a></div>
+        <div class="game-shell"><div class="game-toolbar"><div class="stats"><div class="stat"><span>Moves</span><b id="memory-moves">0</b></div><div class="stat"><span>Matched</span><b><span id="memory-matches" style="display:inline">0</span> / <span id="memory-pair-count">8</span></b></div></div><div class="toolbar-actions"><div class="memory-difficulties" role="group" aria-label="Difficulty"><button class="action-button" data-memory-size="4" aria-pressed="true">Easy</button><button class="action-button" data-memory-size="7" aria-pressed="false">Medium</button><button class="action-button" data-memory-size="10" aria-pressed="false">Hard</button></div><button class="action-button primary" id="memory-reset">↻ New game</button></div></div><div class="memory-board" id="memory-board" aria-label="Animal matching cards"></div><p class="memory-foot">Find two of the same animal to make a match.</p></div>
       </section>
 </main>
 </div>
