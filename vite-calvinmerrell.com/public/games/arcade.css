@@ -29,3 +29,35 @@
 .back-button{display:inline-block;color:inherit;text-decoration:none}.crumb a{color:inherit;text-decoration:none}@media(max-width:620px){.nav a{white-space:nowrap;font-size:11px;padding:8px 10px;gap:7px}}
 @media(max-width:620px){.tank-stats{display:grid;grid-template-columns:repeat(2,minmax(56px,1fr));gap:5px}.tank-stats .stat{min-width:0}}
 .space-toolbar{flex-wrap:wrap}.space-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));flex:1 1 360px;min-width:0}.space-stats .stat{min-width:0}
+
+/* Warm print-room palette to carry the pencil card art into each game screen. */
+:root{--ink:#33291f;--muted:#74685a;--paper:#e9e1d3;--line:#d5c7b3;--card-shadow:0 12px 30px #49351d18}
+body{background:radial-gradient(ellipse at 78% 8%,#f2eadc 0,transparent 42%),var(--paper);color:var(--ink)}
+aside{border-color:#cfc0aa}
+.brand-name,.game-heading h1,.section-head h2{font-family:Georgia,'Times New Roman',serif;letter-spacing:-.5px}
+.brand-mark{border-radius:50%;background:#d2a66f;box-shadow:0 3px 0 #b98754}
+.eyebrow,.aside-foot,.crumb,.kicker,.section-head span{color:#88755e}
+.nav a,.nav button{color:#766653}
+.nav a:hover,.nav a.active,.nav button:hover,.nav button.active{background:#ded2bf;color:#372b20}
+.nav-icon{filter:saturate(.72)}
+.game-heading{padding:0 0 18px;border-bottom:1px solid #cdbda6;margin-bottom:22px}
+.game-heading h1{color:#382b20;font-size:clamp(38px,4vw,52px);letter-spacing:-1.5px}
+.game-heading h1::after{content:'';display:block;width:56px;height:3px;margin-top:12px;border-radius:2px;background:#b9824d}
+.game-heading p{color:#756858;line-height:1.6}
+.back-button,.action-button{border-color:#c9b89f;background:#f8f3e9;color:#4a3928;box-shadow:0 2px 0 #e0d4c1}
+.back-button:hover,.action-button:hover{background:#efe2cc;border-color:#b9976d}
+.action-button.primary{background:#765236;color:#fff8ec;border-color:#765236;box-shadow:0 3px 0 #563b27}
+.action-button.primary:hover{background:#65472f}
+.game-shell{border-color:#d3c3ad;background:#f8f3e9;box-shadow:0 16px 38px #49351d1a,inset 0 0 0 1px #fffaf1;border-radius:23px;padding:24px}
+.stat{border-color:#ddceb9;background:#f1e8d9;border-radius:12px}
+.stat span{color:#88745b}
+.stat b{color:#453423}
+.game-help,.snake-hint,.memory-foot,.chess-note{color:#82725e}
+.aside-note{background:#ded2bf;color:#645441}
+.aside-note b{color:#372b20}
+.aside-foot{color:#8a785f}
+.game-shell .memory-foot{color:#82725e}
+.game-shell .piano-shell{background:#43372f;border:1px solid #6a5540;box-shadow:inset 0 0 0 1px #7b6247}
+.game-shell:focus-within{outline-color:#b9824d}
+:focus-visible{outline:3px solid #bd8956;outline-offset:3px}
+@media(max-width:620px){.game-heading{padding-bottom:14px;margin-bottom:17px}.game-heading h1{font-size:35px}.game-shell{padding:14px;border-radius:19px}}
